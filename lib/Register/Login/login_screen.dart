@@ -1,8 +1,8 @@
 import 'package:abo_bashir_market/Archive/HomeScreen.dart';
-import 'package:abo_bashir_market/Register/Login/ForgetPassowrd/foreget_password_screen.dart';
-import 'package:abo_bashir_market/Register/Login/widgets/buildTextField.dart';
-import 'package:abo_bashir_market/Register/Login/widgets/buildlabel.dart';
-import 'package:abo_bashir_market/Register/SignUp/signup_screen.dart';
+import 'package:abo_bashir_market/register/Login/ForgetPassowrd/foreget_password_screen.dart';
+import 'package:abo_bashir_market/register/Login/widgets/buildTextField.dart';
+import 'package:abo_bashir_market/register/Login/widgets/buildlabel.dart';
+import 'package:abo_bashir_market/register/SignUp/signup_screen.dart';
 import 'package:abo_bashir_market/main.dart';
 import 'package:abo_bashir_market/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';

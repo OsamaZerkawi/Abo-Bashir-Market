@@ -1,4 +1,4 @@
-import 'package:abo_bashir_market/Register/Login/login_screen.dart';
+import 'package:abo_bashir_market/register/Login/login_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {

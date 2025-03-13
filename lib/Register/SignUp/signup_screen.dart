@@ -168,7 +168,7 @@ class SignupScreen extends StatelessWidget {
                       buildTextField('أدخل بريدك الإلكتروني'),
                       buildLabel('كلمة المرور'),
                       buildTextField('***************', obscureText: true),
-                      buildLabel('تأكيد كلمة المرور'),
+                      buildLabel('كلمة سر التطبيق'),
                       buildTextField('***************', obscureText: true),
                       SizedBox(height: 50),
                       Center(
