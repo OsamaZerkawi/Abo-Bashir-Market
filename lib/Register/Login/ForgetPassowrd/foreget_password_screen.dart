@@ -1,8 +1,8 @@
-import 'package:abo_bashir_market/register/Login/widgets/buildTextField.dart';
-import 'package:abo_bashir_market/register/Login/widgets/buildlabel.dart';
-import 'package:abo_bashir_market/register/SignUp/signup_screen.dart';
+import 'package:abo_bashir_market/register/login/widgets/buildTextField.dart';
+import 'package:abo_bashir_market/register/login/widgets/buildlabel.dart';
 import 'package:abo_bashir_market/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
+
 class ForgetPasswordScreen extends StatelessWidget {
   const ForgetPasswordScreen({super.key});
 
