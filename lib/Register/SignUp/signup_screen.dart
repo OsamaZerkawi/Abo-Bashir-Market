@@ -99,7 +99,7 @@
 
 import 'package:abo_bashir_market/Register/cubit/auth_cubit.dart';
 import 'package:abo_bashir_market/Register/cubit/auth_state.dart';
-import 'package:abo_bashir_market/services/api_service.dart';
+import 'package:abo_bashir_market/data/services/api_service.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:abo_bashir_market/register/Login/widgets/buildTextField.dart';
 import 'package:abo_bashir_market/register/Login/widgets/buildlabel.dart';

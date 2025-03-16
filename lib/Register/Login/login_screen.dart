@@ -1,4 +1,6 @@
 import 'package:abo_bashir_market/Archive/HomeScreen.dart';
+import 'package:abo_bashir_market/constants/constants.dart';
+import 'package:abo_bashir_market/data/services/api_service.dart';
 import 'package:abo_bashir_market/register/Login/ForgetPassowrd/foreget_password_screen.dart';
 import 'package:abo_bashir_market/register/Login/widgets/buildTextField.dart';
 import 'package:abo_bashir_market/register/Login/widgets/buildlabel.dart';
@@ -51,12 +53,16 @@ class LoginScreen extends StatelessWidget {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => SignupScreen(),
+                                      builder: (context) => SignupScreen(
+                                        apiService: ApiService(
+                                            baseUrl:
+                                                'http://127.0.0.1:8000/api'),
+                                      ),
                                     ));
                               },
                               child: Text(
                                 'إنشاء حساب جديد',
-                                style: TextStyle(color: Color(0xFF5BE15F)),
+                                style: TextStyle(color: kprimarycolor),
                               ),
                             ),
                           ],
@@ -69,9 +75,19 @@ class LoginScreen extends StatelessWidget {
                               TextAlign.right), // TextField aligned to right
                       buildLabel('كلمة المرور', textAlign: TextAlign.right),
                       buildTextField('***************',
-                          obscureText: true,
-                          textAlign:
-                              TextAlign.right), // TextField aligned to right
+                          obscureText: true, textAlign: TextAlign.right),
+                      Row(
+                        children: [
+                          Checkbox(
+                            value: true,
+                            activeColor: kprimarycolor,
+                            onChanged: (value) {},
+                          ),
+                          Text('تذكرني لمدة شهرين'),
+                        ],
+                      ),
+
+                      // TextField aligned to right
                       SizedBox(height: 50),
                       Center(
                         child: CustomElevatedButton(
