@@ -1,10 +1,10 @@
-import 'package:abo_bashir_market/Archive/HomeScreen.dart';
+import 'package:abo_bashir_market/archive/HomeScreen.dart';
 import 'package:abo_bashir_market/constants/constants.dart';
 import 'package:abo_bashir_market/data/services/api_service.dart';
-import 'package:abo_bashir_market/register/Login/ForgetPassowrd/foreget_password_screen.dart';
-import 'package:abo_bashir_market/register/Login/widgets/buildlabel.dart';
-import 'package:abo_bashir_market/register/SignUp/signup_screen.dart';
+import 'package:abo_bashir_market/register/login/ForgetPassowrd/foreget_password_screen.dart';
 import 'package:abo_bashir_market/register/login/widgets/buildTextField.dart';
+import 'package:abo_bashir_market/register/login/widgets/buildlabel.dart';
+import 'package:abo_bashir_market/register/signup/signup_screen.dart';
 import 'package:abo_bashir_market/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
 
@@ -15,6 +15,12 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double padding = screenWidth * 0.1; // Responsive padding
+
+    // Controllers and FocusNodes for form fields
+    TextEditingController emailController = TextEditingController();
+    TextEditingController passwordController = TextEditingController();
+    FocusNode emailFocusNode = FocusNode(); // Non-nullable FocusNode
+    FocusNode passwordFocusNode = FocusNode(); // Non-nullable FocusNode
 
     return Directionality(
       textDirection: TextDirection.rtl,
@@ -46,13 +52,14 @@ class LoginScreen extends StatelessWidget {
                         GestureDetector(
                           onTap: () {
                             Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => SignupScreen(
-                                    apiService: ApiService(
-                                        baseUrl: 'http://127.0.0.1:8000/api'),
-                                  ),
-                                ));
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SignupScreen(
+                                  apiService: ApiService(
+                                      baseUrl: 'http://10.65.11.21:8000/api'),
+                                ),
+                              ),
+                            );
                           },
                           child: Text('إنشاء حساب جديد',
                               style: kLinkStyle(context)),
@@ -62,11 +69,20 @@ class LoginScreen extends StatelessWidget {
                   ),
                   SizedBox(height: screenWidth * 0.1),
                   buildLabel('البريد الإلكتروني'),
-                  buildTextField('أدخل بريدك الإلكتروني',
-                      textAlign: TextAlign.right),
+                  buildTextField(
+                    'أدخل بريدك الإلكتروني',
+                    controller: emailController,
+                    focusNode: emailFocusNode, // Non-nullable
+                    nextFocusNode: passwordFocusNode,
+                  ),
                   buildLabel('كلمة المرور'),
-                  buildTextField('***************',
-                      obscureText: true, textAlign: TextAlign.right),
+                  buildTextField(
+                    '***************',
+
+                    obscureText: true,
+                    controller: passwordController,
+                    focusNode: passwordFocusNode, // Non-nullable
+                  ),
                   Row(
                     children: [
                       Checkbox(
@@ -86,10 +102,11 @@ class LoginScreen extends StatelessWidget {
                       borderRadius: 30,
                       onPressed: () {
                         Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => HomeScreen(),
-                            ));
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => HomeScreen(),
+                          ),
+                        );
                       },
                       foregroundColor: Colors.white,
                       backgroundColor: kPrimaryColor,
@@ -100,10 +117,11 @@ class LoginScreen extends StatelessWidget {
                     child: GestureDetector(
                       onTap: () {
                         Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ForgetPasswordScreen(),
-                            ));
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ForgetPasswordScreen(),
+                          ),
+                        );
                       },
                       child: Text('هل نسيت كلمة المرور؟',
                           style: kLinkStyle(context)),

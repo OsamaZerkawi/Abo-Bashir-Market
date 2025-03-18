@@ -1,4 +1,3 @@
-
 import 'package:abo_bashir_market/constants/constants.dart';
 import 'package:abo_bashir_market/register/login/login_screen.dart';
 import 'package:flutter/material.dart';
@@ -14,13 +13,14 @@ class ShoeStoreApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
+        scaffoldBackgroundColor: Colors.white,
         textSelectionTheme: TextSelectionThemeData(
           cursorColor: kPrimaryColor, // Change cursor color
           // selectionColor: kPrimaryColor, // Change text selection color
           selectionHandleColor: kPrimaryColor, // Change selection handle color
         ),
       ),
-      debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: true,
       home: HomePage(),
       locale: Locale('ar', 'AE'),
       localizationsDelegates: [

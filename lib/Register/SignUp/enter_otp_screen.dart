@@ -3,8 +3,8 @@ import 'package:abo_bashir_market/register/login/widgets/buildlabel.dart';
 import 'package:abo_bashir_market/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
 
-class ForgetPasswordScreen extends StatelessWidget {
-  const ForgetPasswordScreen({super.key});
+class EnterOtpScreen extends StatelessWidget {
+  const EnterOtpScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                     children: [
                       Center(
                         child: Text(
-                          'استعادة كلمة المرور',
+                          'ادخل رقم التحقق',
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 24),
                         ),
@@ -38,19 +38,19 @@ class ForgetPasswordScreen extends StatelessWidget {
                       SizedBox(height: 10),
                       Center(
                         child: Text(
-                            'قم بإدخال بريدك الإلكتروني لاستعادة كلمة المرور'),
+                            'قم بإدخال رمز التحقق الذي تم ارساله إلى بريدك الإلكتروني'),
                       ),
                       SizedBox(height: 50),
-                      buildLabel('البريد الإلكتروني'),
+                      buildLabel('رمز التحقق'),
                       buildTextField(
-                        'أدخل بريدك الإلكتروني',
+                        '123456',
                         controller: emailController,
                         focusNode: emailFocusNode,
                       ),
                       SizedBox(height: 50),
                       Center(
                         child: CustomElevatedButton(
-                          text: 'استعادة كلمة المرور',
+                          text: 'تم',
                           height: 50,
                           width: screenWidth * 0.8,
                           borderRadius: 30,

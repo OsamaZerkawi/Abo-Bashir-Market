@@ -157,25 +157,18 @@ class ApiService {
 
   /// Registers a new user
   Future<dynamic> registerUser({
-    required String firstName,
-    required String lastName,
-    required String email,
-    required String password,
-    required String passwordConfirmation,
-    required String phone,
-    required String appPassword,
-    String? image,
+    required Map<String, dynamic> userData,
   }) async {
     // Prepare the request body
     final Map<String, dynamic> requestBody = {
-      'first_name': firstName,
-      'last_name': lastName,
-      'email': email,
-      'password': password,
-      'password_confirmation': passwordConfirmation,
-      'phone': phone,
-      'app_password': appPassword,
-      'image': image ?? '',
+      'first_name': userData['first_name'],
+      'last_name': userData['last_name'],
+      'email': userData['email'],
+      'password': userData['password'],
+      'password_confirmation': userData['password_confirmation'],
+      'phone': userData['phone'],
+      'app_password': userData['app_password'],
+      'image': userData['image'] ?? '',
     };
 
     try {
@@ -189,8 +182,6 @@ class ApiService {
       throw Exception('Failed to register user: $e');
     }
   }
-
-  register(Map<String, dynamic> userData) {}
 
   login(Map<String, dynamic> loginData) {}
 
