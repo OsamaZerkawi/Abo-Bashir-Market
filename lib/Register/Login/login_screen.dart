@@ -1,7 +1,6 @@
-import 'package:abo_bashir_market/archive/HomeScreen.dart';
+
 import 'package:abo_bashir_market/constants/constants.dart';
 import 'package:abo_bashir_market/data/services/api_service.dart';
-import 'package:abo_bashir_market/register/login/ForgetPassowrd/foreget_password_screen.dart';
 import 'package:abo_bashir_market/register/login/widgets/buildTextField.dart';
 import 'package:abo_bashir_market/register/login/widgets/buildlabel.dart';
 import 'package:abo_bashir_market/register/signup/signup_screen.dart';
@@ -54,10 +53,8 @@ class LoginScreen extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => SignupScreen(
-                                  apiService: ApiService(
-                                      baseUrl: 'http://10.65.11.21:8000/api'),
-                                ),
+                                builder: (context) =>
+                                    SignupScreen(apiService: ApiService()),
                               ),
                             );
                           },
@@ -101,12 +98,13 @@ class LoginScreen extends StatelessWidget {
                       width: screenWidth * 0.8,
                       borderRadius: 30,
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => HomeScreen(),
-                          ),
-                        );
+                        //Todo: add goroute
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (context) => HomeScreen(),
+                        //   ),
+                        // );
                       },
                       foregroundColor: Colors.white,
                       backgroundColor: kPrimaryColor,
@@ -115,14 +113,7 @@ class LoginScreen extends StatelessWidget {
                   SizedBox(height: screenWidth * 0.05),
                   Center(
                     child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ForgetPasswordScreen(),
-                          ),
-                        );
-                      },
+                      onTap: () {},
                       child: Text('هل نسيت كلمة المرور؟',
                           style: kLinkStyle(context)),
                     ),

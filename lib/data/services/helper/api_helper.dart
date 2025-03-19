@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-class ApiHelper {
-  final String baseUrl;
+final String baseUrl = 'http://10.65.11.10:8000/api';
 
-  ApiHelper({required this.baseUrl}); // Allows setting a base URL for the API
+class ApiHelper {
+  ApiHelper(); // Allows setting a base URL for the API
 
   /// Private method to generate headers dynamically
   Map<String, String> _getHeaders(String? token) {

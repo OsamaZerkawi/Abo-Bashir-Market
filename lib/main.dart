@@ -1,4 +1,5 @@
 import 'package:abo_bashir_market/constants/constants.dart';
+import 'package:abo_bashir_market/constants/router.dart';
 import 'package:abo_bashir_market/register/login/login_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +12,7 @@ class ShoeStoreApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white,
         textSelectionTheme: TextSelectionThemeData(
@@ -21,7 +22,8 @@ class ShoeStoreApp extends StatelessWidget {
         ),
       ),
       debugShowCheckedModeBanner: true,
-      home: HomePage(),
+      // home: HomePage(),
+      routerConfig: router,
       locale: Locale('ar', 'AE'),
       localizationsDelegates: [
         // Add localization delegates if needed
