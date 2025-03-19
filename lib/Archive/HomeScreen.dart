@@ -111,7 +111,7 @@ class _BrandButton extends StatelessWidget {
   final String label;
   final bool isSelected;
 
-  const _BrandButton({required this.label, this.isSelected = false, super.key});
+  const _BrandButton({required this.label, this.isSelected = false});
 
   @override
   Widget build(BuildContext context) {
@@ -134,7 +134,7 @@ class _BrandButton extends StatelessWidget {
 class _SectionTitle extends StatelessWidget {
   final String title;
 
-  const _SectionTitle({required this.title, super.key});
+  const _SectionTitle({required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -155,7 +155,7 @@ class _ShoeCard extends StatelessWidget {
   final String name;
   final String price;
 
-  const _ShoeCard({required this.name, required this.price, super.key});
+  const _ShoeCard({required this.name, required this.price});
 
   @override
   Widget build(BuildContext context) {
