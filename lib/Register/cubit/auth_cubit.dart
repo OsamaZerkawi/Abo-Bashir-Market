@@ -1,5 +1,3 @@
-
-
 import 'package:abo_bashir_market/data/services/api_service.dart';
 import 'package:abo_bashir_market/register/cubit/auth_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,15 +20,20 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  // Future<void> signUp(Map<String, dynamic> userData) async {
-  //   emit(AuthLoading());
-  //   try {
-  //     final response = await apiService.register(userData);
-  //     emit(AuthSuccess(response.data['token']));
-  //   } catch (e) {
-  //     emit(AuthError(e.toString()));
-  //   }
-  // }
+  Future<void> emailVerify({
+    required String email,
+    required String otp,
+  }) async {
+    emit(AuthLoading()); // Show loading state
+    try {
+      final response = await apiService.emailVerify(email: email, otp: otp);
+      // You can handle the response here, for example:
+      // If the verification is successful:
+      emit(AuthSuccess());
+    } catch (e) {
+      emit(AuthError(e.toString())); // Emit error if there is an exception
+    }
+  }
 
   Future<void> login(Map<String, dynamic> loginData) async {
     emit(AuthLoading());

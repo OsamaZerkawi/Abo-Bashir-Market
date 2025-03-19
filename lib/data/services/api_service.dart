@@ -149,13 +149,14 @@
 
 import 'package:abo_bashir_market/data/services/helper/api_helper.dart';
 
+
+
 class ApiService {
   final ApiHelper _apiHelper;
 
-  ApiService({required String baseUrl})
-      : _apiHelper = ApiHelper(baseUrl: baseUrl);
+  ApiService() : _apiHelper = ApiHelper();
 
-  /// Registers a new user
+  
   Future<dynamic> registerUser({
     required Map<String, dynamic> userData,
   }) async {
@@ -181,6 +182,19 @@ class ApiService {
     } catch (e) {
       throw Exception('Failed to register user: $e');
     }
+  }
+
+  /// Email Verification
+  Future<dynamic> emailVerify({
+    required String email,
+    required String otp,
+  }) async {
+    final Map<String, dynamic> requestBody = {
+      'email': email,
+      'otp': otp,
+    };
+    return await _apiHelper.post(
+        endpoint: '/users/emailVerify', body: requestBody);
   }
 
   login(Map<String, dynamic> loginData) {}

@@ -1,17 +1,16 @@
-import 'package:abo_bashir_market/register/cubit/auth_cubit.dart';
 import 'package:abo_bashir_market/register/login/widgets/buildTextField.dart';
 import 'package:abo_bashir_market/register/login/widgets/buildlabel.dart';
 import 'package:abo_bashir_market/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-class EnterOtpScreen extends StatelessWidget {
-  const EnterOtpScreen({super.key});
+class ForgetPasswordScreen extends StatelessWidget {
+  const ForgetPasswordScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController otpController = TextEditingController();
-    FocusNode otpFocusNode = FocusNode();
+    // Controller and FocusNode for the email field
+    TextEditingController emailController = TextEditingController();
+    FocusNode emailFocusNode = FocusNode();
 
     return Directionality(
       textDirection: TextDirection.rtl,
@@ -31,7 +30,7 @@ class EnterOtpScreen extends StatelessWidget {
                     children: [
                       Center(
                         child: Text(
-                          'ادخل رقم التحقق',
+                          'استعادة كلمة المرور',
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 24),
                         ),
@@ -39,38 +38,33 @@ class EnterOtpScreen extends StatelessWidget {
                       SizedBox(height: 10),
                       Center(
                         child: Text(
-                            'قم بإدخال رمز التحقق الذي تم ارساله إلى بريدك الإلكتروني'),
+                            'قم بإدخال بريدك الإلكتروني لاستعادة كلمة المرور'),
                       ),
                       SizedBox(height: 50),
-                      buildLabel('رمز التحقق'),
+                      buildLabel('البريد الإلكتروني'),
                       buildTextField(
-                        '123456',
-                        controller: otpController,
-                        focusNode: otpFocusNode,
+                        'أدخل بريدك الإلكتروني',
+                        controller: emailController,
+                        focusNode: emailFocusNode,
                       ),
                       SizedBox(height: 50),
                       Center(
                         child: CustomElevatedButton(
-                          text: 'تم',
+                          text: 'استعادة كلمة المرور',
                           height: 50,
                           width: screenWidth * 0.8,
                           borderRadius: 30,
-                          onPressed: () async {
-                            String otp = otpController.text;
-                            String email =
-                                'asamazarqawi@gmail.com'; // Pass the actual email from the context
-
-                            if (otp.isNotEmpty) {
-                              // Trigger the email verification API call via Cubit
-                              await context.read<AuthCubit>().emailVerify(
-                                    email: email,
-                                    otp: otp,
-                                  );
+                          onPressed: () {
+                            // Handle password recovery logic
+                            String email = emailController.text;
+                            if (email.isNotEmpty) {
+                              // Call the API or method to reset the password
+                              // Example: apiService.resetPassword(email);
                             } else {
                               // Show an error message
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
-                                  content: Text('يرجى إدخال رمز التحقق'),
+                                  content: Text('يرجى إدخال بريد إلكتروني'),
                                 ),
                               );
                             }
