@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:abo_bashir_market/data/services/api_service.dart';
 import 'package:abo_bashir_market/register/cubit/auth_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,11 +9,13 @@ class AuthCubit extends Cubit<AuthState> {
 
   AuthCubit(this.apiService) : super(AuthInitial());
 
-  Future<void> signUp(Map<String, dynamic> userData) async {
+  Future<void> signUp(Map<String, dynamic> userData, File? image) async {
     emit(AuthLoading());
     try {
       //send data to api
-      final response = await apiService.registerUser(userData: userData);
+      final response =
+          await apiService.registerUser(userData: userData, image: image);
+      print('(((((((((((((((())))))))))))))))');
       print(response);
       // emit(AuthSuccess(response.data['token']));
       emit(AuthSuccess());

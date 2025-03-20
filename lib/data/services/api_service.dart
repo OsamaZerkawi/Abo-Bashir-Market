@@ -147,18 +147,45 @@
 //   }
 // }
 
+import 'dart:io';
+
 import 'package:abo_bashir_market/data/services/helper/api_helper.dart';
-
-
 
 class ApiService {
   final ApiHelper _apiHelper;
 
   ApiService() : _apiHelper = ApiHelper();
 
-  
+  // Future<dynamic> registerUser({
+  //   required Map<String, dynamic> userData,
+  // }) async {
+  //   // Prepare the request body
+  //   final Map<String, dynamic> requestBody = {
+  //     'first_name': userData['first_name'],
+  //     'last_name': userData['last_name'],
+  //     'email': userData['email'],
+  //     'password': userData['password'],
+  //     'password_confirmation': userData['password_confirmation'],
+  //     'phone': userData['phone'],
+  //     'app_password': userData['app_password'],
+  //     'image': userData['image'] ?? '',
+  //   };
+
+  //   try {
+  //     // Make POST request to register user
+  //     final response = await _apiHelper.post(
+  //       endpoint: '/users/register',
+  //       body: requestBody,
+  //     );
+  //     return response;
+  //   } catch (e) {
+  //     throw Exception('Failed to register user: $e');
+  //   }
+  // }
+
   Future<dynamic> registerUser({
     required Map<String, dynamic> userData,
+    File? image,
   }) async {
     // Prepare the request body
     final Map<String, dynamic> requestBody = {
@@ -167,16 +194,17 @@ class ApiService {
       'email': userData['email'],
       'password': userData['password'],
       'password_confirmation': userData['password_confirmation'],
-      'phone': userData['phone'],
       'app_password': userData['app_password'],
-      'image': userData['image'] ?? '',
+      'image':
+          userData['image'] ?? '', // Image path will be handled in multipart
     };
 
     try {
-      // Make POST request to register user
-      final response = await _apiHelper.post(
+      // Make POST request to register user with multipart data
+      final response = await _apiHelper.postWithMultipart(
         endpoint: '/users/register',
-        body: requestBody,
+        fields: requestBody,
+        image: image, // Send the image
       );
       return response;
     } catch (e) {

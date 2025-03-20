@@ -11,7 +11,6 @@ final String loginScreenID = '/logIn';
 final String signUpScreenID = '/signUp';
 final String enterOtpScreenID = '/EnterOtpScreen';
 
-
 final GoRouter router = GoRouter(
     navigatorKey: GlobalKey<
         NavigatorState>(), // AGoRouter sometimes requires a navigatorKey to avoid issues with navigation.
@@ -26,6 +25,9 @@ final GoRouter router = GoRouter(
             return SignupScreen(apiService: ApiService());
           }),
       GoRoute(
-          path: enterOtpScreenID,
-          builder: (context, state) => EnterOtpScreen()),
+          path: '$enterOtpScreenID/:email',
+          builder: (context, state) {
+            final email = state.pathParameters['email'];
+            return EnterOtpScreen(email: email!);
+          }),
     ]);

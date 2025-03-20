@@ -1,6 +1,5 @@
 import 'package:abo_bashir_market/constants/router.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -15,12 +14,12 @@ class WelcomeScreen extends StatelessWidget {
           children: [
             ElevatedButton(
                 onPressed: () {
-                  context.go(signUpScreenID);
+                  context.push(signUpScreenID);
                 },
                 child: Text('SignUp')),
             ElevatedButton(
                 onPressed: () {
-                  context.go(loginScreenID);
+                  context.push(loginScreenID);
                 },
                 child: Text('SignIn')),
           ],

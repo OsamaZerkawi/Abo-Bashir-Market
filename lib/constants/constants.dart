@@ -1,16 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 // Primary color for branding
 const Color kPrimaryColor = Color(0xff5BE15F);
-
-
-
-
-
-
-
-
-
+const Color kHintTextColor = Color.fromARGB(255, 176, 164, 164);
 
 // Responsive Text Styles
 TextStyle kHeadingStyle(BuildContext context) {
