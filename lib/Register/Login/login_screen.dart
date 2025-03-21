@@ -1,6 +1,6 @@
 
 import 'package:abo_bashir_market/constants/constants.dart';
-import 'package:abo_bashir_market/data/services/api_service.dart';
+import 'package:abo_bashir_market/services/api_service.dart';
 import 'package:abo_bashir_market/register/login/widgets/buildTextField.dart';
 import 'package:abo_bashir_market/register/login/widgets/buildlabel.dart';
 import 'package:abo_bashir_market/register/signup/signup_screen.dart';

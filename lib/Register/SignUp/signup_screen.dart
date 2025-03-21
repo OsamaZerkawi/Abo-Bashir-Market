@@ -1,17 +1,18 @@
-import 'dart:convert';
 import 'dart:io';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_picker/image_picker.dart';
+
 import 'package:abo_bashir_market/constants/constants.dart';
 import 'package:abo_bashir_market/constants/router.dart';
-import 'package:abo_bashir_market/data/services/api_service.dart';
+import 'package:abo_bashir_market/services/api_service.dart';
 import 'package:abo_bashir_market/register/cubit/auth_cubit.dart';
 import 'package:abo_bashir_market/register/cubit/auth_state.dart';
 import 'package:abo_bashir_market/register/login/widgets/buildTextField.dart';
 import 'package:abo_bashir_market/register/login/widgets/buildlabel.dart';
+import 'package:abo_bashir_market/register/validator.dart';
 import 'package:abo_bashir_market/widgets/custom_elevated_button.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:image_picker/image_picker.dart';
 
 class SignupScreen extends StatefulWidget {
   final ApiService apiService;
@@ -29,106 +30,38 @@ class _SignupScreenState extends State<SignupScreen> {
   bool _isPasswordConfirmationVisible = false;
   bool _isAppPasswordVisible = false;
 
-  void _togglePasswordVisibility() {
-    setState(() {
-      _isPasswordVisible = !_isPasswordVisible;
-    });
-  }
-
-  void _togglePasswordConfirmationVisibility() {
-    setState(() {
-      _isPasswordConfirmationVisible = !_isPasswordConfirmationVisible;
-    });
-  }
-
-  void _toggleAppPasswordVisibility() {
-    setState(() {
-      _isAppPasswordVisible = !_isAppPasswordVisible;
-    });
-  }
-
   // Controllers and FocusNodes for form fields
   late TextEditingController usernameController;
+
   late TextEditingController lastnameController;
+
   late TextEditingController emailController;
+
   late TextEditingController passwordController;
   late TextEditingController passwordConfirmationController;
   late TextEditingController appPasswordController;
-
   // Image File
   File? _image;
-
   // FocusNodes
   late FocusNode usernameFocusNode;
   late FocusNode lastnameFocusNode;
+
   late FocusNode emailFocusNode;
+
   late FocusNode passwordFocusNode;
   late FocusNode passwordConfirmationFocusNode;
   late FocusNode appPasswordFocusNode;
-
-  @override
-  void initState() {
-    super.initState();
-    usernameController = TextEditingController();
-    lastnameController = TextEditingController();
-    emailController = TextEditingController();
-    passwordController = TextEditingController();
-    passwordConfirmationController = TextEditingController();
-    appPasswordController = TextEditingController();
-
-    // Initialize FocusNodes
-    usernameFocusNode = FocusNode();
-    lastnameFocusNode = FocusNode();
-    emailFocusNode = FocusNode();
-    passwordFocusNode = FocusNode();
-    passwordConfirmationFocusNode = FocusNode();
-    appPasswordFocusNode = FocusNode();
-  }
-
-  @override
-  void dispose() {
-    // Dispose controllers and FocusNodes
-    usernameController.dispose();
-    lastnameController.dispose();
-    emailController.dispose();
-    passwordController.dispose();
-    passwordConfirmationController.dispose();
-    appPasswordController.dispose();
-    usernameFocusNode.dispose();
-    lastnameFocusNode.dispose();
-    emailFocusNode.dispose();
-    passwordFocusNode.dispose();
-    passwordConfirmationFocusNode.dispose();
-    appPasswordFocusNode.dispose();
-    super.dispose();
-  }
-
-  // Function to pick an image
-  Future<void> _pickImage() async {
-    final ImagePicker picker = ImagePicker();
-    final XFile? pickedFile =
-        await picker.pickImage(source: ImageSource.gallery);
-
-    if (pickedFile != null) {
-      setState(() {
-        _image = File(pickedFile.path); // Save the image file
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) {
           if (state is AuthError) {
-            final message = jsonDecode(state.message);
-            print('______________________________________________________');
-            print(message);
-            print('______________________________________________________');
-            // if (message[] == '') {}
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.message)),
+              SnackBar(
+                content: Text(state.message),
+                backgroundColor: Colors.red,
+              ),
             );
           } else if (state is AuthSuccess) {
             context.push('$enterOtpScreenID/${emailController.text}');
@@ -279,75 +212,48 @@ class _SignupScreenState extends State<SignupScreen> {
                               height: 50,
                               width: screenWidth * 0.8,
                               onPressed: () async {
-                                // Validate fields before sending the request
-                                if (usernameController.text.isEmpty ||
-                                    lastnameController.text.isEmpty ||
-                                    emailController.text.isEmpty ||
-                                    passwordController.text.isEmpty ||
-                                    passwordConfirmationController
-                                        .text.isEmpty ||
-                                    appPasswordController.text.isEmpty) {
-                                  // print('user name${usernameController.text}');
-                                  // print('last name${lastnameController.text}');
-                                  // print('email ${emailController.text}');
-                                  // print('password ${passwordController.text}');
-                                  // print(
-                                  //     'password_confirmation ${passwordConfirmationController.text}');
-                                  // print(
-                                  //     'app_password ${appPasswordController.text}');
+                                String? emailError = Validator.validateEmail(
+                                    emailController.text);
+                                String? passwordError =
+                                    Validator.validatePassword(
+                                        passwordController.text);
+                                String? confirmPasswordError =
+                                    Validator.validatePasswordConfirmation(
+                                  passwordController.text,
+                                  passwordConfirmationController.text,
+                                );
+                                String? appPasswordError =
+                                    Validator.validatePassword(
+                                        appPasswordController.text);
+                                String? firstNameError =
+                                    Validator.validateRequiredField(
+                                        usernameController.text, 'الاسم');
+                                String? lastNameError =
+                                    Validator.validateRequiredField(
+                                        lastnameController.text, 'الكنية');
+
+                                if (emailError != null ||
+                                    passwordError != null ||
+                                    confirmPasswordError != null ||
+                                    appPasswordError != null ||
+                                    firstNameError != null ||
+                                    lastNameError != null) {
+                                  //Validate All Fields
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
-                                        content:
-                                            Text('تأكد من ملئ جميع الحقول')),
+                                      content: Text(emailError ??
+                                          passwordError ??
+                                          confirmPasswordError ??
+                                          appPasswordError ??
+                                          firstNameError ??
+                                          lastNameError!),
+                                      backgroundColor: Colors.red,
+                                    ),
                                   );
                                   return;
                                 }
 
-                                // Email format validation
-                                final emailRegex = RegExp(
-                                    r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
-                                if (!emailRegex
-                                    .hasMatch(emailController.text)) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                        content: Text(
-                                            'يرجى إدخال بريد إلكتروني صالح')),
-                                  );
-                                  return;
-                                }
-
-                                // Password length validation
-                                if (passwordController.text.length < 6) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                        content: Text(
-                                            'يجب أن تكون كلمة المرور على الأقل 6 أحرف')),
-                                  );
-                                  return;
-                                }
-
-                                // Password confirmation match validation
-                                if (passwordController.text !=
-                                    passwordConfirmationController.text) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                        content:
-                                            Text('كلمات المرور لا تتطابق')),
-                                  );
-                                  return;
-                                }
-
-                                // App password validation (example: not empty and at least 4 characters)
-                                if (appPasswordController.text.length < 6) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                        content: Text(
-                                            'يجب أن تكون كلمة مرور التطبيق على الأقل 6 أحرف')),
-                                  );
-                                  return;
-                                }
-
-                                // Prepare user data
+                                // Proceed with API call if no errors
                                 Map<String, dynamic> userData = {
                                   "first_name": usernameController.text,
                                   "last_name": lastnameController.text,
@@ -356,11 +262,9 @@ class _SignupScreenState extends State<SignupScreen> {
                                   "password_confirmation":
                                       passwordConfirmationController.text,
                                   "app_password": appPasswordController.text,
-                                  "image": _image?.path ??
-                                      '', // Pass the image path here
+                                  "image": _image?.path ?? '',
                                 };
 
-                                // Call the API
                                 await BlocProvider.of<AuthCubit>(context)
                                     .signUp(userData, _image);
                               },
@@ -381,5 +285,80 @@ class _SignupScreenState extends State<SignupScreen> {
         },
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    // Dispose controllers and FocusNodes
+    usernameController.dispose();
+    lastnameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    passwordConfirmationController.dispose();
+    appPasswordController.dispose();
+    usernameFocusNode.dispose();
+    lastnameFocusNode.dispose();
+    emailFocusNode.dispose();
+    passwordFocusNode.dispose();
+    passwordConfirmationFocusNode.dispose();
+    appPasswordFocusNode.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    usernameController = TextEditingController();
+    lastnameController = TextEditingController();
+    emailController = TextEditingController();
+    passwordController = TextEditingController();
+    passwordConfirmationController = TextEditingController();
+    appPasswordController = TextEditingController();
+
+    // Initialize FocusNodes
+    usernameFocusNode = FocusNode();
+    lastnameFocusNode = FocusNode();
+    emailFocusNode = FocusNode();
+    passwordFocusNode = FocusNode();
+    passwordConfirmationFocusNode = FocusNode();
+    appPasswordFocusNode = FocusNode();
+  }
+
+  Future<void> _pickImage() async {
+    final ImagePicker picker = ImagePicker();
+    try {
+      final XFile? pickedFile =
+          await picker.pickImage(source: ImageSource.gallery);
+      if (pickedFile != null) {
+        setState(() {
+          _image = File(pickedFile.path);
+        });
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('فشل في اختيار الصورة: $e'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+  }
+
+  void _toggleAppPasswordVisibility() {
+    setState(() {
+      _isAppPasswordVisible = !_isAppPasswordVisible;
+    });
+  }
+
+  void _togglePasswordConfirmationVisibility() {
+    setState(() {
+      _isPasswordConfirmationVisible = !_isPasswordConfirmationVisible;
+    });
+  }
+
+  void _togglePasswordVisibility() {
+    setState(() {
+      _isPasswordVisible = !_isPasswordVisible;
+    });
   }
 }

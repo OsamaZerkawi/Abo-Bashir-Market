@@ -1,4 +1,4 @@
-import 'package:abo_bashir_market/data/services/api_service.dart';
+import 'package:abo_bashir_market/services/api_service.dart';
 import 'package:abo_bashir_market/register/login/login_screen.dart';
 import 'package:abo_bashir_market/register/signup/enter_otp_screen.dart';
 import 'package:abo_bashir_market/register/signup/signup_screen.dart';
