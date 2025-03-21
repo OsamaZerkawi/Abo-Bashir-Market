@@ -1,9 +1,7 @@
-
-
 import 'dart:io';
 
-import 'package:abo_bashir_market/services/api_service.dart';
 import 'package:abo_bashir_market/register/cubit/auth_state.dart';
+import 'package:abo_bashir_market/services/api_service.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AuthCubit extends Cubit<AuthState> {
@@ -20,6 +18,7 @@ class AuthCubit extends Cubit<AuthState> {
       final response = await apiService.emailVerify(email: email, otp: otp);
       // You can handle the response here, for example:
       // If the verification is successful:
+
       emit(AuthSuccess());
     } catch (e) {
       emit(AuthError(e.toString())); // Emit error if there is an exception

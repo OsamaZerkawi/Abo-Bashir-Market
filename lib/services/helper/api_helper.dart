@@ -7,7 +7,7 @@ import 'package:http_parser/http_parser.dart';
 final String baseUrl = 'http://10.65.11.2:8000/api';
 
 class ApiHelper {
-  ApiHelper(); // Allows setting a base URL for the API
+  ApiHelper();
 
   /// Performs a DELETE request
   Future<dynamic> delete({
