@@ -1,4 +1,4 @@
-class Validator {
+class ValidatorHelper {
   // Validate Email
   static String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {

@@ -9,6 +9,8 @@ class AuthSuccess extends AuthState {
   // AuthSuccess(this.token);
 }
 
+class AuthUnauthorized extends AuthState {}
+
 class AuthError extends AuthState {
   final String message;
   AuthError(this.message);

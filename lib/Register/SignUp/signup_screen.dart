@@ -1,18 +1,19 @@
 import 'dart:io';
 
-import 'package:abo_bashir_market/constants/constants.dart';
-import 'package:abo_bashir_market/constants/router.dart';
-import 'package:abo_bashir_market/services/api_service.dart';
-import 'package:abo_bashir_market/register/cubit/auth_cubit.dart';
-import 'package:abo_bashir_market/register/cubit/auth_state.dart';
-import 'package:abo_bashir_market/register/login/widgets/buildTextField.dart';
-import 'package:abo_bashir_market/register/login/widgets/buildlabel.dart';
-import 'package:abo_bashir_market/register/validator.dart';
-import 'package:abo_bashir_market/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
+
+import 'package:abo_bashir_market/constants/constants.dart';
+import 'package:abo_bashir_market/config/routes/router.dart';
+import 'package:abo_bashir_market/register/cubit/auth_cubit.dart';
+import 'package:abo_bashir_market/register/cubit/auth_state.dart';
+import 'package:abo_bashir_market/register/login/widgets/buildTextField.dart';
+import 'package:abo_bashir_market/register/login/widgets/buildlabel.dart';
+import 'package:abo_bashir_market/services/api_service.dart';
+import 'package:abo_bashir_market/services/helper/validator_helper.dart';
+import 'package:abo_bashir_market/widgets/custom_elevated_button.dart';
 
 class SignupScreen extends StatefulWidget {
   final ApiService apiService;
@@ -212,24 +213,25 @@ class _SignupScreenState extends State<SignupScreen> {
                               height: 50,
                               width: screenWidth * 0.8,
                               onPressed: () async {
-                                String? emailError = Validator.validateEmail(
-                                    emailController.text);
+                                String? emailError =
+                                    ValidatorHelper.validateEmail(
+                                        emailController.text);
                                 String? passwordError =
-                                    Validator.validatePassword(
+                                    ValidatorHelper.validatePassword(
                                         passwordController.text);
-                                String? confirmPasswordError =
-                                    Validator.validatePasswordConfirmation(
+                                String? confirmPasswordError = ValidatorHelper
+                                    .validatePasswordConfirmation(
                                   passwordController.text,
                                   passwordConfirmationController.text,
                                 );
                                 String? appPasswordError =
-                                    Validator.validatePassword(
+                                    ValidatorHelper.validatePassword(
                                         appPasswordController.text);
                                 String? firstNameError =
-                                    Validator.validateRequiredField(
+                                    ValidatorHelper.validateRequiredField(
                                         usernameController.text, 'الاسم');
                                 String? lastNameError =
-                                    Validator.validateRequiredField(
+                                    ValidatorHelper.validateRequiredField(
                                         lastnameController.text, 'الكنية');
 
                                 if (emailError != null ||

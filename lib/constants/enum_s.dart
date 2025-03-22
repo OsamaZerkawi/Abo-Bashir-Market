@@ -1,0 +1,4 @@
+enum Subject {
+  password,
+  email,
+}

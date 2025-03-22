@@ -1,4 +1,4 @@
-import 'package:abo_bashir_market/constants/router.dart';
+import 'package:abo_bashir_market/config/routes/router.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
