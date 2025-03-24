@@ -1,27 +1,25 @@
 import 'dart:io';
 
+import 'package:abo_bashir_market/config/routes/router.dart';
+import 'package:abo_bashir_market/constants/constants.dart';
+import 'package:abo_bashir_market/register/cubit/auth_cubit.dart';
+import 'package:abo_bashir_market/register/cubit/auth_state.dart';
+import 'package:abo_bashir_market/register/login/widgets/buildTextField.dart';
+import 'package:abo_bashir_market/register/login/widgets/buildlabel.dart';
+import 'package:abo_bashir_market/services/helper/validator_helper.dart';
+import 'package:abo_bashir_market/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 
-import 'package:abo_bashir_market/constants/constants.dart';
-import 'package:abo_bashir_market/config/routes/router.dart';
-import 'package:abo_bashir_market/register/cubit/auth_cubit.dart';
-import 'package:abo_bashir_market/register/cubit/auth_state.dart';
-import 'package:abo_bashir_market/register/login/widgets/buildTextField.dart';
-import 'package:abo_bashir_market/register/login/widgets/buildlabel.dart';
-import 'package:abo_bashir_market/services/api_service.dart';
-import 'package:abo_bashir_market/services/helper/validator_helper.dart';
-import 'package:abo_bashir_market/widgets/custom_elevated_button.dart';
-
 class SignupScreen extends StatefulWidget {
-  final ApiService apiService;
+  // final ApiService apiService;
 
-  const SignupScreen({super.key, required this.apiService});
+  const SignupScreen({super.key});
 
   @override
-  _SignupScreenState createState() => _SignupScreenState();
+  State<SignupScreen> createState() => _SignupScreenState();
 }
 
 class _SignupScreenState extends State<SignupScreen> {
@@ -196,6 +194,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             onTogglePasswordVisibility:
                                 _togglePasswordConfirmationVisibility,
                           ),
+
                           buildLabel('كلمة مرور التطبيق'),
                           buildTextField(
                             '***************',

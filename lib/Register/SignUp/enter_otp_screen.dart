@@ -53,7 +53,16 @@ class EnterOtpScreen extends StatelessWidget {
                         focusNode: otpFocusNode,
                       ),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () async {
+                          try {
+                            await BlocProvider.of<AuthCubit>(context).resendOTP(
+                              subject: 'emailVerify',
+                              email: email,
+                            );
+                          } catch (e) {
+                            print(e);
+                          }
+                        },
                         child: Text(
                           'إعادة إرسال الرمز',
                           style: kLinkStyle(context),
@@ -70,6 +79,11 @@ class EnterOtpScreen extends StatelessWidget {
                           } else if (state is AuthError) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(content: Text(state.message)),
+                            );
+                          } else if (state is AuthReSendOTPSuccess) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                  content: Text('تم إعادة إرسال الرمز بنجاح!')),
                             );
                           }
                         },

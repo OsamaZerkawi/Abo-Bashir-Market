@@ -14,6 +14,11 @@ class WelcomeScreen extends StatelessWidget {
           children: [
             ElevatedButton(
                 onPressed: () {
+                  context.push('$enterOtpScreenID/asamazarqawi@gmail.com');
+                },
+                child: Text('EnterOTP')),
+            ElevatedButton(
+                onPressed: () {
                   context.push(signUpScreenID);
                 },
                 child: Text('SignUp')),

@@ -1,11 +1,9 @@
-import 'dart:ffi';
+// import 'dart:ffi';
 import 'dart:io';
 
 import 'package:abo_bashir_market/register/cubit/auth_state.dart';
 import 'package:abo_bashir_market/services/api_service.dart';
-import 'package:abo_bashir_market/services/helper/api_helper.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:http/http.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   final ApiService apiService;
@@ -31,18 +29,8 @@ class AuthCubit extends Cubit<AuthState> {
   }) async {
     emit(AuthLoading());
     try {
-      await apiService.resendOTP(subject: subject, email: email);
-      emit(AuthSuccess());
-    } catch (e) {
-      emit(AuthError(e.toString()));
-    }
-  }
-
-  Future<void> login(Map<String, dynamic> loginData) async {
-    emit(AuthLoading());
-    try {
-      final response = await apiService.login(loginData);
-      // emit(AuthSuccess(response.data['token']));
+      await apiService.resendOTP(email: email, subject: subject);
+      emit(AuthReSendOTPSuccess());
     } catch (e) {
       emit(AuthError(e.toString()));
     }
@@ -58,6 +46,36 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
+  Future<void> login({
+    required String email,
+    required String password,
+    required String fcmToken,
+    required bool rememberMe,
+  }) async {
+    emit(AuthLoading());
+    try {
+      final response = await apiService.login(
+        email: email,
+        password: password,
+        fcmToken: fcmToken,
+        rememberMe: rememberMe,
+      );
+      emit(AuthLoginSuccess(response['data']['token']));
+    } catch (e) {
+      if (e is Map<String, dynamic>) {
+        if (e['status_code'] == 400) {
+          emit(AuthError('الحساب غير موجود'));
+        } else if (e['status_code'] == 401) {
+          emit(AuthError('كلمة السر غير صحيحة'));
+        } else {
+          emit(AuthError(e.toString()));
+        }
+      } else {
+        emit(AuthError('حدث خطأ غير متوقع  ${e.toString()}'));
+      }
+    }
+  }
+
   Future<void> signUp(Map<String, dynamic> userData, File? image) async {
     emit(AuthLoading());
     try {
@@ -65,24 +83,16 @@ class AuthCubit extends Cubit<AuthState> {
           await apiService.registerUser(userData: userData, image: image);
       emit(AuthSuccess());
     } catch (e) {
-      if (e is ApiException) {
-        if (e.statusCode == 401) {
+      if (e is Map<String, dynamic>) {
+        if (e['status_code'] == 401) {
           emit(AuthUnauthorized());
         } else {
-          emit(AuthError(e.message));
+          final errorMessages = _parseErrorMessages(e);
+          emit(AuthError(errorMessages));
         }
       } else {
-        emit(AuthError('حدث خطأ غير متوقع'));
+        emit(AuthError('حدث خطأ غير متوقع  ${e.toString()}'));
       }
-
-      // if (e is Map<String, dynamic>) {
-      //   // Handle the error response
-      //   final errorMessages = _parseErrorMessages(e);
-      //   emit(AuthError(errorMessages));
-      // } else {
-      //   // Handle generic exceptions
-      //   emit(AuthError('حدث خطأ غير متوقع'));
-      // }
     }
   }
 
@@ -114,3 +124,73 @@ class AuthCubit extends Cubit<AuthState> {
     return errors.join('\n');
   }
 }
+
+// //New
+// import 'dart:io';
+
+// import 'package:abo_bashir_market/register/cubit/auth_state.dart';
+// import 'package:abo_bashir_market/services/api_service.dart';
+// import 'package:abo_bashir_market/services/helper/api_helper.dart';
+// import 'package:flutter_bloc/flutter_bloc.dart';
+
+// class AuthCubit extends Cubit<AuthState> {
+//   final ApiService apiService;
+
+//   AuthCubit(this.apiService) : super(AuthInitial());
+
+//   Future<void> emailVerify({required String email, required String otp}) async {
+//     emit(AuthLoading());
+//     try {
+//       await apiService.emailVerify(email: email, otp: otp);
+//       emit(AuthSuccess());
+//     } catch (e) {
+//       emit(AuthError(e.toString()));
+//     }
+//   }
+
+//   Future<void> resendOTP(
+//       {required String subject, required String email}) async {
+//     emit(AuthLoading());
+//     try {
+//       await apiService.resendOTP(subject: subject, email: email);
+//       emit(AuthSuccess());
+//     } catch (e) {
+//       emit(AuthError(e.toString()));
+//     }
+//   }
+
+//   Future<void> login(Map<String, dynamic> loginData) async {
+//     emit(AuthLoading());
+//     try {
+//       await apiService.login(loginData);
+//       emit(AuthSuccess());
+//     } catch (e) {
+//       emit(AuthError(e.toString()));
+//     }
+//   }
+
+//   Future<void> logout(String token) async {
+//     emit(AuthLoading());
+//     try {
+//       await apiService.logout(token);
+//       emit(AuthLogout());
+//     } catch (e) {
+//       emit(AuthError(e.toString()));
+//     }
+//   }
+
+//   Future<void> signUp(Map<String, dynamic> userData, File? image) async {
+//     emit(AuthLoading());
+//     try {
+//       await apiService.registerUser(userData: userData, image: image);
+//       emit(AuthSuccess());
+//     } catch (e) {
+//       if (e is ApiException) {
+//         emit(AuthError(e.message));
+//       } else {
+//         print(e);
+//         emit(AuthError('حدث خطأ غير متوقع'));
+//       }
+//     }
+//   }
+// }

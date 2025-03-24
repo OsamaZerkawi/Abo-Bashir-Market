@@ -1,4 +1,5 @@
-import 'package:abo_bashir_market/services/api_service.dart';
+import 'package:abo_bashir_market/archive/HomeScreen.dart';
+import 'package:abo_bashir_market/main.dart';
 import 'package:abo_bashir_market/register/login/login_screen.dart';
 import 'package:abo_bashir_market/register/signup/enter_otp_screen.dart';
 import 'package:abo_bashir_market/register/signup/signup_screen.dart';
@@ -7,6 +8,7 @@ import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 
 final String welcomeScreenID = '/';
+final String homeScreenID = '/homeScreen';
 final String loginScreenID = '/logIn';
 final String signUpScreenID = '/signUp';
 final String enterOtpScreenID = '/EnterOtpScreen';
@@ -18,11 +20,12 @@ final GoRouter router = GoRouter(
     routes: [
       GoRoute(
           path: welcomeScreenID, builder: (context, state) => WelcomeScreen()),
+      GoRoute(path: homeScreenID, builder: (context, state) => HomeScreen()),
       GoRoute(path: loginScreenID, builder: (context, state) => LoginScreen()),
       GoRoute(
           path: signUpScreenID,
           builder: (context, state) {
-            return SignupScreen(apiService: ApiService());
+            return SignupScreen();
           }),
       GoRoute(
           path: '$enterOtpScreenID/:email',

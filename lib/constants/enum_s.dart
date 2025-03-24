@@ -1,4 +1,4 @@
 enum Subject {
-  password,
-  email,
+  emailVerify,
+  resetPassword,
 }
