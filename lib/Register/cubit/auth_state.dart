@@ -1,43 +1,56 @@
-// abstract class AuthState {}
-
-// class AuthInitial extends AuthState {}
-
-// class AuthLoading extends AuthState {}
-
-// class AuthSuccess extends AuthState {
-//   // final String token;
-//   // AuthSuccess(this.token);
-// }
-
-// class AuthUnauthorized extends AuthState {}
-
-// class AuthError extends AuthState {
-//   final String message;
-//   AuthError(this.message);
-// }
-
-// class AuthLogout extends AuthState {}
-
 abstract class AuthState {}
 
-class AuthInitial extends AuthState {}
+class AuthInitial extends AuthState{}
 
-class AuthLoading extends AuthState {}
+//SignUp
+class AuthSignUpInitial extends AuthState {}
 
-class AuthSuccess extends AuthState {}
+class AuthSignUpLoading extends AuthState {}
+
+class AuthSignUpSuccess extends AuthState {}
+
+class AuthSignUpError extends AuthState {
+  final String message;
+  AuthSignUpError({required this.message});
+}
+
+//Login
+class AuthLoginInitial extends AuthState {}
+
+class AuthLoginLoading extends AuthState {}
 
 class AuthLoginSuccess extends AuthState {
   final String token;
   AuthLoginSuccess(this.token);
 }
 
-class AuthError extends AuthState {
+class AuthLoginError extends AuthState {
   final String message;
-  AuthError(this.message);
+  AuthLoginError({required this.message});
 }
+
+//ResendOTP
+class AuthReSendOTPInitial extends AuthState {}
+
+class AuthReSendOTPSLoading extends AuthState {}
 
 class AuthReSendOTPSuccess extends AuthState {}
 
-class AuthLogout extends AuthState {}
+class AuthReSendOTPError extends AuthState {
+  final String message;
+  AuthReSendOTPError({required this.message});
+}
+
+//Logout
+class AuthLogoutInitial extends AuthState {}
+
+class AuthLogoutLoading extends AuthState {}
+
+class AuthLogoutSuccess extends AuthState {}
+
+class AuthLogoutError extends AuthState {
+  final String message;
+  AuthLogoutError({required this.message});
+}
 
 class AuthUnauthorized extends AuthState {}

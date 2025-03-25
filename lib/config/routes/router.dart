@@ -22,15 +22,15 @@ final GoRouter router = GoRouter(
           path: welcomeScreenID, builder: (context, state) => WelcomeScreen()),
       GoRoute(path: homeScreenID, builder: (context, state) => HomeScreen()),
       GoRoute(path: loginScreenID, builder: (context, state) => LoginScreen()),
-      GoRoute(
-          path: signUpScreenID,
-          builder: (context, state) {
-            return SignupScreen();
-          }),
-      GoRoute(
-          path: '$enterOtpScreenID/:email',
-          builder: (context, state) {
-            final email = state.pathParameters['email'];
-            return EnterOtpScreen(email: email!);
-          }),
+      // GoRoute(
+      //     path: signUpScreenID,
+      //     builder: (context, state) {
+      //       return SignupScreen();
+      //     }),
+      // GoRoute(
+      //     path: '$enterOtpScreenID/:email',
+      //     builder: (context, state) {
+      //       final email = state.pathParameters['email'];
+      //       return EnterOtpScreen(email: email!);
+      //     }),
     ]);

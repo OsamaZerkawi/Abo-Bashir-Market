@@ -64,7 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
       child: Scaffold(
         body: BlocConsumer<AuthCubit, AuthState>(
           listener: (context, state) {
-            if (state is AuthError) {
+            if (state is AuthLoginError) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text(state.message),
@@ -72,7 +72,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               );
             } else if (state is AuthLoginSuccess) {
-              
               print('token is :${state.token}');
               context.push(homeScreenID);
               ScaffoldMessenger.of(context).showSnackBar(
@@ -85,7 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
             }
           },
           builder: (context, state) {
-            if (state is AuthLoading) {
+            if (state is AuthLoginLoading) {
               return Center(
                   child: CircularProgressIndicator(
                 color: kPrimaryColor,
@@ -184,10 +183,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                 return;
                               }
 
-                              await BlocProvider.of<AuthCubit>(context).login(
+                              await BlocProvider.of<AuthCubit>(context).signIn(
                                 email: emailController.text,
                                 password: passwordController.text,
-                                fcmToken: 'askdj',
+                                fcmToken: '1',
                                 rememberMe: _isChecked,
                               );
                             },
@@ -215,3 +214,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
+
+// decodedToken: {iss: http://192.168.242.38:8000/api/users/login, iat: 1742876444, exp: 1742898044,  nbf: 1742876444, jti: 4uXt2GydETAKShGK, sub: 15, prv: b91279978f11aa7bc5670487fff01e228253fe48}
+
+// decodedToken: {iss: http://192.168.242.38:8000/api/users/login, iat: 1742876623, exp: 1742898223, nbf: 1742876623, jti: AJizfWc39YB56i6Y, sub: 15, prv: b91279978f11aa7bc5670487fff01e228253fe48}
