@@ -1,7 +1,5 @@
 import 'package:abo_bashir_market/archive/HomeScreen.dart';
-import 'package:abo_bashir_market/main.dart';
 import 'package:abo_bashir_market/register/login/login_screen.dart';
-import 'package:abo_bashir_market/register/signup/enter_otp_screen.dart';
 import 'package:abo_bashir_market/register/signup/signup_screen.dart';
 import 'package:abo_bashir_market/register/welcome_screen.dart';
 import 'package:flutter/widgets.dart';
@@ -22,11 +20,11 @@ final GoRouter router = GoRouter(
           path: welcomeScreenID, builder: (context, state) => WelcomeScreen()),
       GoRoute(path: homeScreenID, builder: (context, state) => HomeScreen()),
       GoRoute(path: loginScreenID, builder: (context, state) => LoginScreen()),
-      // GoRoute(
-      //     path: signUpScreenID,
-      //     builder: (context, state) {
-      //       return SignupScreen();
-      //     }),
+      GoRoute(
+          path: signUpScreenID,
+          builder: (context, state) {
+            return SignupScreen();
+          }),
       // GoRoute(
       //     path: '$enterOtpScreenID/:email',
       //     builder: (context, state) {

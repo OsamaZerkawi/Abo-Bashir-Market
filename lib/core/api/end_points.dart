@@ -1,10 +1,10 @@
 class EndPoint {
-  static String baseUrl = "http://192.168.242.38:8000/api/";
+  static String baseUrl = "http://10.65.11.6:8000/api/";
   static String logIn = "users/login";
   static String signUp = "users/register";
-  static String getUserDataEndPoint(id) {
-    return "user/get-user/$id";
-  }
+  // static String getUserDataEndPoint(id) {
+  //   return "user/get-user/$id";
+  // }
 }
 
 class ApiKey {
@@ -23,6 +23,10 @@ class ApiKey {
   static String image = "image";
   static String token = "token";
   //*End Login
+
+  //*Start SignUp
+  static String passwordConfirm = "password_confirmation";
+  static String appPassword = "app_password";
 
   // static String errorMessage = "ErrorMessage";
   // static String id = "id";

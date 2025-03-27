@@ -186,7 +186,10 @@ class _LoginScreenState extends State<LoginScreen> {
                               await BlocProvider.of<AuthCubit>(context).signIn(
                                 email: emailController.text,
                                 password: passwordController.text,
-                                fcmToken: '1',
+                                //Todo! what is the right way?
+                                fcmToken: 'as',
+                                // fcmToken:
+                                //     CacheHelper().getData(key: ApiKey.token) ?? '',
                                 rememberMe: _isChecked,
                               );
                             },

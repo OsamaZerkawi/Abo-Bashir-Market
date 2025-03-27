@@ -5,6 +5,7 @@ import 'package:abo_bashir_market/core/api/api_consumer.dart';
 import 'package:abo_bashir_market/core/api/dio_consumer.dart';
 import 'package:abo_bashir_market/register/cubit/auth_cubit.dart';
 import 'package:abo_bashir_market/register/login/login_screen.dart';
+import 'package:abo_bashir_market/repository/auth_repository.dart';
 import 'package:abo_bashir_market/services/api_service.dart';
 import 'package:abo_bashir_market/services/helper/shared_pref_helper.dart';
 import 'package:dio/dio.dart';
@@ -35,7 +36,8 @@ class ShoeStoreApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AuthCubit(DioConsumer(dio: Dio())),
+      create: (context) =>
+          AuthCubit(AuthRepository(api: DioConsumer(dio: Dio()))),
       child: MaterialApp.router(
         theme: ThemeData(
           progressIndicatorTheme: ProgressIndicatorThemeData(
