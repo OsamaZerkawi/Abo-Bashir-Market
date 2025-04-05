@@ -1,4 +1,11 @@
+import 'dart:math';
+
+import 'package:abo_bashir_market/cache/cache_helper.dart';
+import 'package:abo_bashir_market/core/api/end_points.dart';
+import 'package:abo_bashir_market/register/cubit/auth_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 // void main() {
 //   runApp(const ShoeStoreApp());
@@ -97,10 +104,15 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () async {
+          await BlocProvider.of<AuthCubit>(context).delete();
+          await CacheHelper().clearData(key: ApiKey.token);
+
+          // context.pop();
+        },
         backgroundColor: Color(0xFF5BE15F),
-        child: const Icon(Icons.add, color: Colors.white),
         tooltip: 'إضافة',
+        child: const Icon(Icons.add, color: Colors.white),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
