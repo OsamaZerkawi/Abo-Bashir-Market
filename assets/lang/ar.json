@@ -1,0 +1,17 @@
+{
+  "hello": "مرحبا",
+  "welcome": "مرحبًا بك في تطبيقنا!",
+  "change_language": "تغيير اللغة",
+  "title" : "أبو بشير ماركت",
+    "SignUp":"إنشاء حساب",
+    "SignIn": "تسجيل الدخول",
+    "ChangeLanguage":"تغيير اللغة",
+    "The email has already been taken.":"البريد الإلكتروني مستخدم بالفعل",
+     "unexpected_error": "حدث خطأ غير متوقع",
+  "he password field confirmation does not match.": "كلمة المرور غير متطابقة",
+  "The password confirmation field must match password.": "تأكيد كلمة المرور يجب أن يتطابق مع كلمة المرور",
+  "The selected app password is invalid.": "كلمة مرور التطبيق غير صالحة",
+"The selected email is invalid.":"البريد الالكتروني غير موجود",
+"Incorrect password":"كلمة سر غير صحيحة",
+"Validation failed":"خطأ بتسجيل الدخول"
+} 
