@@ -1,5 +1,7 @@
+import 'package:abo_bashir_market/cache/cache_helper.dart';
 import 'package:abo_bashir_market/config/routes/router.dart';
 import 'package:abo_bashir_market/constants/constants.dart';
+import 'package:abo_bashir_market/core/api/end_points.dart';
 import 'package:abo_bashir_market/register/cubit/auth_cubit.dart';
 import 'package:abo_bashir_market/register/cubit/auth_state.dart';
 import 'package:abo_bashir_market/register/login/widgets/buildTextField.dart';
@@ -59,160 +61,199 @@ class _LoginScreenState extends State<LoginScreen> {
     double screenWidth = MediaQuery.of(context).size.width;
     double padding = screenWidth * 0.1; // Responsive padding
 
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Scaffold(
-        body: BlocConsumer<AuthCubit, AuthState>(
-          listener: (context, state) {
-            if (state is AuthLoginError) {
+    return Scaffold(
+      body: BlocConsumer<AuthCubit, AuthState>(
+        listener:
+            // (context, state) async {
+            //   if (state is AuthLoginError) {
+            //     ScaffoldMessenger.of(context).showSnackBar(
+            //       SnackBar(
+            //         content: Text('${state.message} \n ${state.data}'),
+            //         backgroundColor: Colors.red,
+            //       ),
+            //     );
+            //   } else if (state is AuthLoginSuccess) {
+            //     debugPrint('state.token: ${state.token}');
+            //     // / After successful login
+            //     await CacheHelper().saveData(key: ApiKey.token, value: state.token);
+            //     context.go(homeScreenID);
+            //     ScaffoldMessenger.of(context).showSnackBar(
+            //       SnackBar(
+            //         content: Text('تم تسجيل الدخول بنجاح'),
+            //         duration: Duration(seconds: 2),
+            //         backgroundColor: kPrimaryColor,
+            //       ),
+            //     );
+            //   }
+            // },
+
+            (context, state) {
+          if (state is AuthLoginError) {
+            if (mounted) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text(state.message),
+                  content: Text('${state.message} \n ${state.data}'),
                   backgroundColor: Colors.red,
-                ),
-              );
-            } else if (state is AuthLoginSuccess) {
-              print('token is :${state.token}');
-              context.push(homeScreenID);
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text('تم تسجيل الدخول بنجاح'),
-                  duration: Duration(seconds: 2),
-                  backgroundColor: kPrimaryColor,
+                  duration: const Duration(seconds: 3),
                 ),
               );
             }
-          },
-          builder: (context, state) {
-            if (state is AuthLoginLoading) {
-              return Center(
-                  child: CircularProgressIndicator(
-                color: kPrimaryColor,
-              ));
-            } else {
-              return Center(
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: padding),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Center(
-                          child:
-                              Text('أهلا وسهلا', style: kHeadingStyle(context)),
+          } else if (state is AuthLoginSuccess) {
+            // Save token first (no context needed)
+            CacheHelper()
+                .saveData(key: ApiKey.token, value: state.token)
+                .then((_) {
+              // Use context in a synchronous callback
+              if (mounted) {
+                context.go(homeScreenID);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: const Text('تم تسجيل الدخول بنجاح'),
+                    duration: const Duration(seconds: 2),
+                    backgroundColor: kPrimaryColor,
+                  ),
+                );
+              }
+            }).catchError((e) {
+              if (context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: const Text('حدث خطأ في حفظ البيانات'),
+                    backgroundColor: Colors.red,
+                  ),
+                );
+              }
+            });
+          }
+        },
+        builder: (context, state) {
+          if (state is AuthLoginLoading) {
+            return Center(
+                child: CircularProgressIndicator(
+              color: kPrimaryColor,
+            ));
+          } else {
+            return Center(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: padding),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Center(
+                        child:
+                            Text('أهلا وسهلا', style: kHeadingStyle(context)),
+                      ),
+                      SizedBox(height: screenWidth * 0.02),
+                      Center(
+                        child: Text(
+                          'مرحبا بك معنا مجددا، قم بتسجيل الدخول إلى حسابك',
+                          style: kSubtitleStyle(context),
+                          textAlign: TextAlign.center,
                         ),
-                        SizedBox(height: screenWidth * 0.02),
-                        Center(
-                          child: Text(
-                            'مرحبا بك معنا مجددا، قم بتسجيل الدخول إلى حسابك',
-                            style: kSubtitleStyle(context),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        SizedBox(height: screenWidth * 0.05),
-                        Center(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(' أو قم ', style: kSubtitleStyle(context)),
-                              GestureDetector(
-                                onTap: () {
-                                  context.push(signUpScreenID);
-                                },
-                                child: Text('إنشاء حساب جديد',
-                                    style: kLinkStyle(context)),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(height: screenWidth * 0.1),
-                        buildLabel('البريد الإلكتروني'),
-                        buildTextField(
-                          'أدخل بريدك الإلكتروني',
-                          controller: emailController,
-                          focusNode: emailFocusNode, // Non-nullable
-                          nextFocusNode: passwordFocusNode,
-                        ),
-                        buildLabel('كلمة المرور'),
-                        buildTextField(
-                          '***************',
-                          obscureText: !_isPasswordVisible,
-                          isPasswordField: true,
-                          controller: passwordController,
-                          focusNode: passwordFocusNode,
-                          onTogglePasswordVisibility: _togglePasswordVisibility,
-                        ),
-                        Row(
+                      ),
+                      SizedBox(height: screenWidth * 0.05),
+                      Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Checkbox(
-                              value: _isChecked,
-                              activeColor: kPrimaryColor,
-                              onChanged: (value) {
-                                setState(() {
-                                  _isChecked = !_isChecked;
-                                });
+                            Text(' أو قم ', style: kSubtitleStyle(context)),
+                            GestureDetector(
+                              onTap: () {
+                                context.push(signUpScreenID);
                               },
+                              child: Text('إنشاء حساب جديد',
+                                  style: kLinkStyle(context)),
                             ),
-                            Text('تذكرني لمدة شهرين',
-                                style: kLabelStyle(context)),
                           ],
                         ),
-                        SizedBox(height: screenWidth * 0.1),
-                        Center(
-                          child: CustomElevatedButton(
-                            text: 'تسجيل الدخول',
-                            height: 50,
-                            width: screenWidth * 0.8,
-                            borderRadius: 30,
-                            onPressed: () async {
-                              String? emailError =
-                                  ValidatorHelper.validateEmail(
-                                      emailController.text);
-                              String? passwordError =
-                                  ValidatorHelper.validatePassword(
-                                      passwordController.text);
-
-                              if (emailError != null || passwordError != null) {
-                                //Validate All Fields
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(SnackBar(
-                                  content: Text(
-                                    emailError ?? passwordError!,
-                                  ),
-                                ));
-                                return;
-                              }
-
-                              await BlocProvider.of<AuthCubit>(context).signIn(
-                                email: emailController.text,
-                                password: passwordController.text,
-                                //Todo! what is the right way?
-                                fcmToken: 'as',
-                                // fcmToken:
-                                //     CacheHelper().getData(key: ApiKey.token) ?? '',
-                                rememberMe: _isChecked,
-                              );
+                      ),
+                      SizedBox(height: screenWidth * 0.1),
+                      buildLabel('البريد الإلكتروني'),
+                      buildTextField(
+                        'أدخل بريدك الإلكتروني',
+                        controller: emailController,
+                        focusNode: emailFocusNode, // Non-nullable
+                        nextFocusNode: passwordFocusNode,
+                      ),
+                      buildLabel('كلمة المرور'),
+                      buildTextField(
+                        '***************',
+                        obscureText: !_isPasswordVisible,
+                        isPasswordField: true,
+                        controller: passwordController,
+                        focusNode: passwordFocusNode,
+                        onTogglePasswordVisibility: _togglePasswordVisibility,
+                      ),
+                      Row(
+                        children: [
+                          Checkbox(
+                            value: _isChecked,
+                            activeColor: kPrimaryColor,
+                            onChanged: (value) {
+                              setState(() {
+                                _isChecked = !_isChecked;
+                              });
                             },
-                            foregroundColor: Colors.white,
-                            backgroundColor: kPrimaryColor,
                           ),
+                          Text('تذكرني لمدة شهرين',
+                              style: kLabelStyle(context)),
+                        ],
+                      ),
+                      SizedBox(height: screenWidth * 0.1),
+                      Center(
+                        child: CustomElevatedButton(
+                          text: 'تسجيل الدخول',
+                          height: 50,
+                          width: screenWidth * 0.8,
+                          borderRadius: 30,
+                          onPressed: () async {
+                            String? emailError = ValidatorHelper.validateEmail(
+                                emailController.text);
+                            String? passwordError =
+                                ValidatorHelper.validatePassword(
+                                    passwordController.text);
+
+                            if (emailError != null || passwordError != null) {
+                              //Validate All Fields
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
+                                content: Text(
+                                  emailError ?? passwordError!,
+                                ),
+                              ));
+
+                              return;
+                            }
+
+                            await BlocProvider.of<AuthCubit>(context).logIn(
+                              email: emailController.text,
+                              password: passwordController.text,
+                              fcmToken: 'fireBaseToken',
+                              rememberMe: _isChecked,
+                            );
+                          },
+                          foregroundColor: Colors.white,
+                          backgroundColor: kPrimaryColor,
                         ),
-                        SizedBox(height: screenWidth * 0.05),
-                        Center(
-                          child: GestureDetector(
-                            onTap: () {},
-                            child: Text('هل نسيت كلمة المرور؟',
-                                style: kLinkStyle(context)),
-                          ),
+                      ),
+                      SizedBox(height: screenWidth * 0.05),
+                      Center(
+                        child: GestureDetector(
+                          onTap: () {
+                            context.push(forgetPasswordScreenID);
+                          },
+                          child: Text('هل نسيت كلمة المرور؟',
+                              style: kLinkStyle(context)),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
-              );
-            }
-          },
-        ),
+              ),
+            );
+          }
+        },
       ),
     );
   }

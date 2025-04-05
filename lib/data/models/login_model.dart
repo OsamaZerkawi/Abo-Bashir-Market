@@ -1,8 +1,6 @@
-//return when success login
-
-
 import 'package:abo_bashir_market/core/api/end_points.dart';
 
+//Means The respond data from login func
 class LoginModel {
   final bool successful;
   final String message;
@@ -25,36 +23,36 @@ class LoginModel {
   }
 }
 
-class LoginData {
-  final LoginUser user;
-  final String token;
+// class LoginData {
+//   final LoginUser user;
+//   final String token;
 
-  LoginData({required this.user, required this.token});
-  factory LoginData.fromJson(Map<String, dynamic> jsonData) {
-    return LoginData(
-        user: jsonData[ApiKey.user], token: jsonData[ApiKey.token]);
-  }
-}
+//   LoginData({required this.user, required this.token});
+//   factory LoginData.fromJson(Map<String, dynamic> jsonData) {
+//     return LoginData(
+//         user: jsonData[ApiKey.user], token: jsonData[ApiKey.token]);
+//   }
+// }
 
-class LoginUser {
-  final String firstName;
-  final String lastName;
-  final String email;
-  final String image;
+// class LoginUser {
+//   final String firstName;
+//   final String lastName;
+//   final String email;
+//   final String image;
 
-  LoginUser(
-      {required this.firstName,
-      required this.lastName,
-      required this.email,
-      required this.image});
-  factory LoginUser.fromJson(Map<String, dynamic> jsonData) {
-    return LoginUser(
-        firstName: jsonData[ApiKey.firstName],
-        lastName: jsonData[ApiKey.lastName],
-        email: jsonData[ApiKey.email],
-        image: jsonData[ApiKey.image]);
-  }
-}
+//   LoginUser(
+//       {required this.firstName,
+//       required this.lastName,
+//       required this.email,
+//       required this.image});
+//   factory LoginUser.fromJson(Map<String, dynamic> jsonData) {
+//     return LoginUser(
+//         firstName: jsonData[ApiKey.firstName],
+//         lastName: jsonData[ApiKey.lastName],
+//         email: jsonData[ApiKey.email],
+//         image: jsonData[ApiKey.image]);
+//   }
+// }
 
 // {
 //   "successful": true,

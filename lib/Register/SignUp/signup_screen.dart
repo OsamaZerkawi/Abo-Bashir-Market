@@ -58,13 +58,13 @@ class _SignupScreenState extends State<SignupScreen> {
           if (state is AuthSignUpError) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(
-                    '${state.successfull} +  ${state.message} + ${state.statusCode} + ${state.data}'),
+                content: Text('${state.statusCode}  ${state.data}'),
                 backgroundColor: Colors.red,
               ),
             );
           } else if (state is AuthSignUpSuccess) {
-            context.push('$enterOtpScreenID/${emailController.text}');
+            // context.push(enterOtpScreenID);
+            context.push('$emailVerifyScreenID/${emailController.text}');
           }
         },
         builder: (context, state) {
@@ -78,216 +78,235 @@ class _SignupScreenState extends State<SignupScreen> {
               color: kPrimaryColor,
             ));
           } else {
-            return Directionality(
-              textDirection: TextDirection.rtl,
-              child: Scaffold(
-                body: Center(
-                  child: SingleChildScrollView(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: padding),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(height: screenHeight * .07),
-                          Center(
-                            child: Text('إنشاء حساب جديد',
-                                style: kHeadingStyle(context)),
-                          ),
-                          SizedBox(height: 10),
-                          Center(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  ' لديك حساب بالفعل؟ قم ',
-                                  style: kSubtitleStyle(context),
+            return Scaffold(
+              body: Center(
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: padding),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: screenHeight * .07),
+                        Center(
+                          child: Text('إنشاء حساب جديد',
+                              style: kHeadingStyle(context)),
+                        ),
+                        SizedBox(height: 10),
+                        Center(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                ' لديك حساب بالفعل؟ قم ',
+                                style: kSubtitleStyle(context),
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Text(
+                                  'بتسجيل الدخول',
+                                  style: kLinkStyle(context),
                                 ),
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: Text(
-                                    'بتسجيل الدخول',
-                                    style: kLinkStyle(context),
-                                  ),
-                                ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
-                          SizedBox(height: 30),
-                          // Image Picker Section
-                          // PickImageWidget(),
-                          GestureDetector(
-                            onTap: _pickImage,
-                            child: CircleAvatar(
-                              radius: 60,
-                              backgroundColor: Colors.grey[300],
-                              child: _image != null
-                                  ? ClipOval(
-                                      child: Image.file(
-                                        _image!,
-                                        fit: BoxFit.cover,
-                                        width: 120,
-                                        height: 120,
+                        ),
+                        SizedBox(height: 30),
+
+                        GestureDetector(
+                          onTap: _pickImage,
+                          child: SizedBox(
+                              height: 130,
+                              width: 130,
+                              child: _image == null
+                                  ? CircleAvatar(
+                                      backgroundColor: Colors.grey.shade200,
+                                      backgroundImage: const AssetImage(
+                                          "assets/images/avatar.png"),
+                                      child: Stack(
+                                        children: [
+                                          Positioned(
+                                            bottom: 5,
+                                            right: 5,
+                                            child: GestureDetector(
+                                              onTap: () async {},
+                                              child: Container(
+                                                height: 50,
+                                                width: 50,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.blue.shade400,
+                                                  border: Border.all(
+                                                      color: Colors.white,
+                                                      width: 3),
+                                                  borderRadius:
+                                                      BorderRadius.circular(25),
+                                                ),
+                                                child: GestureDetector(
+                                                  onTap: _pickImage,
+                                                  child: const Icon(
+                                                    Icons.camera_alt_sharp,
+                                                    color: Colors.white,
+                                                    size: 25,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     )
-                                  : Icon(
-                                      Icons.camera_alt,
-                                      size: 40,
-                                      color: Colors.grey[800],
-                                    ),
+                                  : CircleAvatar(
+                                      backgroundImage: FileImage(_image!),
+                                    )),
+                        ),
+
+                        SizedBox(height: 20),
+                        // Rest of the fields and labels...
+                        Row(
+                          children: [
+                            buildLabel('الاسم'),
+                            SizedBox(width: padding * 3.6),
+                            buildLabel('الكنية'),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            buildTextField(
+                              'ادخل الاسم',
+                              controller: usernameController,
+                              focusNode: usernameFocusNode,
+                              nextFocusNode: lastnameFocusNode,
+                              width: screenWidth * .35,
                             ),
-                          ),
-
-                          SizedBox(height: 20),
-                          // Rest of the fields and labels...
-                          Row(
-                            children: [
-                              buildLabel('الاسم'),
-                              SizedBox(width: padding * 3.6),
-                              buildLabel('الكنية'),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              buildTextField(
-                                'ادخل الاسم',
-                                controller: usernameController,
-                                focusNode: usernameFocusNode,
-                                nextFocusNode: lastnameFocusNode,
-                                width: screenWidth * .35,
-                              ),
-                              SizedBox(width: padding),
-                              buildTextField(
-                                'ادخل الكنية',
-                                controller: lastnameController,
-                                focusNode: lastnameFocusNode,
-                                nextFocusNode: emailFocusNode,
-                                width: screenWidth * .35,
-                              ),
-                            ],
-                          ),
-                          buildLabel('البريد الإلكتروني'),
-                          buildTextField(
-                            'ادخل بريدك الإلكتروني',
-                            controller: emailController,
-                            focusNode: emailFocusNode,
-                            nextFocusNode: passwordFocusNode,
-                          ),
-                          buildLabel('كلمة المرور'),
-                          buildTextField(
-                            '***************',
-                            obscureText: !_isPasswordVisible,
-                            isPasswordField: true,
-                            controller: passwordController,
-                            focusNode: passwordFocusNode,
-                            nextFocusNode: passwordConfirmationFocusNode,
-                            onTogglePasswordVisibility:
-                                _togglePasswordVisibility,
-                          ),
-                          buildLabel('تأكيد كلمة المرور'),
-                          buildTextField(
-                            '***************',
-                            obscureText: !_isPasswordConfirmationVisible,
-                            isPasswordField: true,
-                            controller: passwordConfirmationController,
-                            focusNode: passwordConfirmationFocusNode,
-                            nextFocusNode: appPasswordFocusNode,
-                            onTogglePasswordVisibility:
-                                _togglePasswordConfirmationVisibility,
-                          ),
-
-                          buildLabel('كلمة مرور التطبيق'),
-                          buildTextField(
-                            '***************',
-                            obscureText: !_isAppPasswordVisible,
-                            isPasswordField: true,
-                            controller: appPasswordController,
-                            focusNode: appPasswordFocusNode,
-                            onTogglePasswordVisibility:
-                                _toggleAppPasswordVisibility,
-                          ),
-                          SizedBox(height: 20),
-                          Center(
-                            child: CustomElevatedButton(
-                              text: 'إنشاء الحساب',
-                              height: 50,
-                              width: screenWidth * 0.8,
-                              onPressed: () async {
-                                String? emailError =
-                                    ValidatorHelper.validateEmail(
-                                        emailController.text);
-                                String? passwordError =
-                                    ValidatorHelper.validatePassword(
-                                        passwordController.text);
-                                String? confirmPasswordError = ValidatorHelper
-                                    .validatePasswordConfirmation(
-                                  passwordController.text,
-                                  passwordConfirmationController.text,
-                                );
-                                String? appPasswordError =
-                                    ValidatorHelper.validatePassword(
-                                        appPasswordController.text);
-                                String? firstNameError =
-                                    ValidatorHelper.validateRequiredField(
-                                        usernameController.text, 'الاسم');
-                                String? lastNameError =
-                                    ValidatorHelper.validateRequiredField(
-                                        lastnameController.text, 'الكنية');
-
-                                if (emailError != null ||
-                                    passwordError != null ||
-                                    confirmPasswordError != null ||
-                                    appPasswordError != null ||
-                                    firstNameError != null ||
-                                    lastNameError != null) {
-                                  //Validate All Fields
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(emailError ??
-                                          passwordError ??
-                                          confirmPasswordError ??
-                                          appPasswordError ??
-                                          firstNameError ??
-                                          lastNameError!),
-                                      backgroundColor: Colors.red,
-                                    ),
-                                  );
-                                  return;
-                                }
-
-                                // Proceed with API call if no errors
-                                // Map<String, dynamic> userData = {
-                                //   "first_name": usernameController.text,
-                                //   "last_name": lastnameController.text,
-                                //   "email": emailController.text,
-                                //   "password": passwordController.text,
-                                //   "password_confirmation":
-                                //       passwordConfirmationController.text,
-                                //   "app_password": appPasswordController.text,
-                                //   "image": _image?.path ?? '',
-                                // };
-
-                                await BlocProvider.of<AuthCubit>(context)
-                                    .signUp(
-                                  firstName: usernameController.text,
-                                  lastName: lastnameController.text,
-                                  email: emailController.text,
-                                  password: passwordController.text,
-                                  passwordConfirm:
-                                      passwordConfirmationController.text,
-                                  appPassword: appPasswordController.text,
-                                  image: _image?.path ?? '',
-                                );
-                              },
-                              borderRadius: 30,
-                              foregroundColor: Colors.white,
-                              backgroundColor: Color(0xff5BE15F),
+                            SizedBox(width: padding),
+                            buildTextField(
+                              'ادخل الكنية',
+                              controller: lastnameController,
+                              focusNode: lastnameFocusNode,
+                              nextFocusNode: emailFocusNode,
+                              width: screenWidth * .35,
                             ),
+                          ],
+                        ),
+                        buildLabel('البريد الإلكتروني'),
+                        buildTextField(
+                          'ادخل بريدك الإلكتروني',
+                          controller: emailController,
+                          focusNode: emailFocusNode,
+                          nextFocusNode: passwordFocusNode,
+                        ),
+                        buildLabel('كلمة المرور'),
+                        buildTextField(
+                          '***************',
+                          obscureText: !_isPasswordVisible,
+                          isPasswordField: true,
+                          controller: passwordController,
+                          focusNode: passwordFocusNode,
+                          nextFocusNode: passwordConfirmationFocusNode,
+                          onTogglePasswordVisibility: _togglePasswordVisibility,
+                        ),
+                        buildLabel('تأكيد كلمة المرور'),
+                        buildTextField(
+                          '***************',
+                          obscureText: !_isPasswordConfirmationVisible,
+                          isPasswordField: true,
+                          controller: passwordConfirmationController,
+                          focusNode: passwordConfirmationFocusNode,
+                          nextFocusNode: appPasswordFocusNode,
+                          onTogglePasswordVisibility:
+                              _togglePasswordConfirmationVisibility,
+                        ),
+
+                        buildLabel('كلمة مرور التطبيق'),
+                        buildTextField(
+                          '***************',
+                          obscureText: !_isAppPasswordVisible,
+                          isPasswordField: true,
+                          controller: appPasswordController,
+                          focusNode: appPasswordFocusNode,
+                          onTogglePasswordVisibility:
+                              _toggleAppPasswordVisibility,
+                        ),
+                        SizedBox(height: 20),
+                        Center(
+                          child: CustomElevatedButton(
+                            text: 'إنشاء الحساب',
+                            height: 50,
+                            width: screenWidth * 0.8,
+                            onPressed: () async {
+                              String? emailError =
+                                  ValidatorHelper.validateEmail(
+                                      emailController.text);
+                              String? passwordError =
+                                  ValidatorHelper.validatePassword(
+                                      passwordController.text);
+                              String? confirmPasswordError =
+                                  ValidatorHelper.validatePasswordConfirmation(
+                                passwordController.text,
+                                passwordConfirmationController.text,
+                              );
+                              String? appPasswordError =
+                                  ValidatorHelper.validatePassword(
+                                      appPasswordController.text);
+                              String? firstNameError =
+                                  ValidatorHelper.validateRequiredField(
+                                      usernameController.text, 'الاسم');
+                              String? lastNameError =
+                                  ValidatorHelper.validateRequiredField(
+                                      lastnameController.text, 'الكنية');
+
+                              if (emailError != null ||
+                                  passwordError != null ||
+                                  confirmPasswordError != null ||
+                                  appPasswordError != null ||
+                                  firstNameError != null ||
+                                  lastNameError != null) {
+                                //Validate All Fields
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(emailError ??
+                                        passwordError ??
+                                        confirmPasswordError ??
+                                        appPasswordError ??
+                                        firstNameError ??
+                                        lastNameError!),
+                                    backgroundColor: Colors.red,
+                                  ),
+                                );
+                                return;
+                              }
+
+                              // Proceed with API call if no errors
+                              // Map<String, dynamic> userData = {
+                              //   "first_name": usernameController.text,
+                              //   "last_name": lastnameController.text,
+                              //   "email": emailController.text,
+                              //   "password": passwordController.text,
+                              //   "password_confirmation":
+                              //       passwordConfirmationController.text,
+                              //   "app_password": appPasswordController.text,
+                              //   "image": _image?.path ?? '',
+                              // };
+
+                              await BlocProvider.of<AuthCubit>(context).signUp(
+                                firstName: usernameController.text,
+                                lastName: lastnameController.text,
+                                email: emailController.text,
+                                password: passwordController.text,
+                                passwordConfirm:
+                                    passwordConfirmationController.text,
+                                appPassword: appPasswordController.text,
+                                image: _image?.path ?? '',
+                              );
+                            },
+                            borderRadius: 30,
+                            foregroundColor: Colors.white,
+                            backgroundColor: Color(0xff5BE15F),
                           ),
-                          SizedBox(height: 20),
-                        ],
-                      ),
+                        ),
+                        SizedBox(height: 20),
+                      ],
                     ),
                   ),
                 ),

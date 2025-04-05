@@ -1,5 +1,6 @@
 import 'package:abo_bashir_market/core/api/end_points.dart';
 
+//Means The respond data from signup func
 class SignUpModel {
   final bool successful;
   final String message;
@@ -21,6 +22,7 @@ class SignUpModel {
         data: jsonData[ApiKey.data]);
   }
 }
+
 
 // {
 //   "successful": true,

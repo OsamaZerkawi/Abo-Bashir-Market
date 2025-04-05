@@ -3,6 +3,8 @@ import 'package:abo_bashir_market/core/api/api_interceptor.dart';
 import 'package:abo_bashir_market/core/api/end_points.dart';
 import 'package:abo_bashir_market/core/errors/exceptions.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
+import 'package:http/http.dart';
 
 ///This like API helper
 class DioConsumer extends ApiConsumer {
@@ -21,6 +23,9 @@ class DioConsumer extends ApiConsumer {
       responseBody: true,
       error: true,
     ));
+    // if (kDebugMode) {
+    //   dio.interceptors.add(servicelo)
+    // }
   }
 
   @override

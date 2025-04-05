@@ -1,7 +1,12 @@
+import 'package:abo_bashir_market/constants/constants.dart';
+import 'package:abo_bashir_market/register/cubit/auth_cubit.dart';
+import 'package:abo_bashir_market/register/cubit/auth_state.dart';
 import 'package:abo_bashir_market/register/login/widgets/buildTextField.dart';
 import 'package:abo_bashir_market/register/login/widgets/buildlabel.dart';
+import 'package:abo_bashir_market/repository/auth_repository.dart';
 import 'package:abo_bashir_market/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ForgetPasswordScreen extends StatelessWidget {
   const ForgetPasswordScreen({super.key});
@@ -12,11 +17,29 @@ class ForgetPasswordScreen extends StatelessWidget {
     TextEditingController emailController = TextEditingController();
     FocusNode emailFocusNode = FocusNode();
 
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Scaffold(
-        appBar: AppBar(),
-        body: Center(
+    return Scaffold(
+      body: BlocListener<AuthCubit, AuthState>(
+        listener: (context, state) {
+          if (state is AuthForgetPasswordError) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('${state.message} \n ${state.data}'),
+                backgroundColor: Colors.red,
+              ),
+            );
+          } else if (state is AuthForgetPasswordSuccess) {
+            debugPrint('state.token: ${state.message}');
+            // context.push(homeScreenID);
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(state.message),
+                duration: Duration(seconds: 2),
+                backgroundColor: kPrimaryColor,
+              ),
+            );
+          }
+        },
+        child: Center(
           child: SingleChildScrollView(
             child: LayoutBuilder(
               builder: (context, constraints) {
@@ -54,12 +77,14 @@ class ForgetPasswordScreen extends StatelessWidget {
                           height: 50,
                           width: screenWidth * 0.8,
                           borderRadius: 30,
-                          onPressed: () {
+                          onPressed: () async {
                             // Handle password recovery logic
                             String email = emailController.text;
                             if (email.isNotEmpty) {
                               // Call the API or method to reset the password
                               // Example: apiService.resetPassword(email);
+                              await BlocProvider.of<AuthCubit>(context)
+                                  .forgetPassword(email: email);
                             } else {
                               // Show an error message
                               ScaffoldMessenger.of(context).showSnackBar(

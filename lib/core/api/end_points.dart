@@ -1,7 +1,17 @@
 class EndPoint {
-  static String baseUrl = "http://10.65.11.6:8000/api/";
-  static String logIn = "users/login";
+  static String baseUrl = "http://192.168.14.38:8000/api/";
   static String signUp = "users/register";
+  static String emailVerify = "users/emailVerify";
+  static String logIn = "users/login";
+  static String logout = "users/logout";
+  static String profile = "users/profile";
+  static String update = "users/update";
+  static String forgetPassword = "users/forgetPassword";
+  static String resetPassword = "users/resetPassword";
+  static String resendOTP = "users/resendOTP";
+  static String delete = "users/delete";
+  static String refreshToken = "users/refreshToken";
+
   // static String getUserDataEndPoint(id) {
   //   return "user/get-user/$id";
   // }
@@ -27,6 +37,11 @@ class ApiKey {
   //*Start SignUp
   static String passwordConfirm = "password_confirmation";
   static String appPassword = "app_password";
+  //*end SignUp
+
+  static String otp = "otp";
+
+  static String subject = "subject";
 
   // static String errorMessage = "ErrorMessage";
   // static String id = "id";

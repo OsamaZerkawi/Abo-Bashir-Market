@@ -73,7 +73,7 @@ import 'package:flutter/material.dart';
 Widget buildTextField(
   String hintText, {
   bool obscureText = false,
-  TextAlign textAlign = TextAlign.right,
+  // TextAlign textAlign = TextAlign.right,
   TextEditingController? controller,
   required FocusNode focusNode,
   FocusNode? nextFocusNode,
@@ -85,7 +85,7 @@ Widget buildTextField(
 }) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 10.0),
-    child: Container(
+    child: SizedBox(
       height: height ?? 70, // Increased height for error message space
       width: width ?? double.infinity,
       child: Column(
@@ -93,7 +93,7 @@ Widget buildTextField(
           TextFormField(
             controller: controller,
             obscureText: obscureText,
-            textAlign: textAlign,
+            // textAlign: textAlign,
             cursorColor: kPrimaryColor,
             autofocus: false,
             focusNode: focusNode,
