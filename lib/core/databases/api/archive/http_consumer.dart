@@ -6,14 +6,12 @@
 //       {Object? data,
 //       Map<String, dynamic>? queryParameters,
 //       bool isFormData = false}) {
-//     // TODO: implement delete
 //     throw UnimplementedError();
 //   }
 
 //   @override
 //   Future get(String path,
 //       {Object? data, Map<String, dynamic>? queryParameters}) {
-//     // TODO: implement get
 //     throw UnimplementedError();
 //   }
 
@@ -22,7 +20,6 @@
 //       {Object? data,
 //       Map<String, dynamic>? queryParameters,
 //       bool isFormData = false}) {
-//     // TODO: implement patch
 //     throw UnimplementedError();
 //   }
 
@@ -31,7 +28,6 @@
 //       {Object? data,
 //       Map<String, dynamic>? queryParameters,
 //       bool isFormData = false}) {
-//     // TODO: implement post
 //     throw UnimplementedError();
 //   }
 // }
