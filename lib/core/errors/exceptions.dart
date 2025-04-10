@@ -1,9 +1,15 @@
 import 'package:abo_bashir_market/core/errors/error_model.dart';
 import 'package:dio/dio.dart';
 
+//! CacheException
+class CacheException implements Exception {
+  final String errorMessage;
+  CacheException({required this.errorMessage});
+}
+
+//! ServerException
 class ServerException implements Exception {
   final ErrorModel errModel;
-
   ServerException({required this.errModel});
 }
 

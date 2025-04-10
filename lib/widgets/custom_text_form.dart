@@ -2,12 +2,13 @@ import 'package:abo_bashir_market/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextForm extends StatelessWidget {
-  const CustomTextForm(
-      {super.key,
-      required this.text,
-      required this.hint,
-      required this.onSave,
-      required this.validator});
+  const CustomTextForm({
+    super.key,
+    required this.text,
+    required this.hint,
+    required this.onSave,
+    required this.validator,
+  });
 
   final String text;
   final String hint;

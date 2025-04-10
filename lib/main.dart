@@ -1,17 +1,16 @@
-import 'package:abo_bashir_market/cache/cache_helper.dart';
 import 'package:abo_bashir_market/config/routes/router.dart';
 import 'package:abo_bashir_market/config/theme/app_theme.dart';
-import 'package:abo_bashir_market/core/api/dio_consumer.dart';
-import 'package:abo_bashir_market/core/api/end_points.dart';
-import 'package:abo_bashir_market/register/cubit/auth_cubit.dart';
-import 'package:abo_bashir_market/repository/auth_repository.dart';
+import 'package:abo_bashir_market/core/databases/api/dio_consumer.dart';
+import 'package:abo_bashir_market/core/databases/cache/cache_helper.dart';
+import 'package:abo_bashir_market/features/product/domain/repository/product_repository.dart';
+import 'package:abo_bashir_market/features/product/presentation/cubit/product_cubit.dart';
+import 'package:abo_bashir_market/features/register/presentation/cubit/auth_cubit.dart';
+import 'package:abo_bashir_market/features/register/domain/repository/auth_repository.dart';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 // import 'package:abo_bashir_market/services/helper/shared_pref_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jwt_decode/jwt_decode.dart';
-import 'package:jwt_decoder/jwt_decoder.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,32 +29,55 @@ class ShoeStoreApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) =>
-          AuthCubit(AuthRepository(api: DioConsumer(dio: Dio()))),
+    return
+        // BlocProvider(
+        //   create: (context) => AuthCubit(
+        //     AuthRepository(
+        //       api: DioConsumer(dio: Dio()),
+        //     ),
+        //   ),
+        //   child: MaterialApp.router(
+        //     title: 'Flutter locatliantion',
+        //     locale: context.locale,
+        //     localizationsDelegates: context.localizationDelegates,
+        //     supportedLocales: context.supportedLocales,
+        //     theme: AppTheme.lightTheme,
+        //     darkTheme: AppTheme.darkTheme, // Dark Theme
+        //     themeMode: ThemeMode.light,
+        //     debugShowCheckedModeBanner: true,
+        //     routerConfig: router,
+        //     // locale: Locale('ar', 'AE'),
+        //   ),
+        // );
+        MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => AuthCubit(
+            AuthRepository(
+              api: DioConsumer(
+                dio: Dio(),
+              ),
+            ),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => ProductCubit(
+            ProductRepository(
+              api: DioConsumer(
+                dio: Dio(),
+              ),
+            ),
+          ),
+        ),
+      ],
       child: MaterialApp.router(
         title: 'Flutter locatliantion',
-
         locale: context.locale,
-
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,
-        // theme: ThemeData(
-        //   progressIndicatorTheme: ProgressIndicatorThemeData(
-        //     color: kPrimaryColor,
-        //     circularTrackColor: kHintTextColor,
-        //   ),
-        //   scaffoldBackgroundColor: Colors.white,
-        //   textSelectionTheme: TextSelectionThemeData(
-        //     cursorColor: kPrimaryColor, // Change cursor color
-        //     // selectionColor: kPrimaryColor, // Change text selection color
-        //     selectionHandleColor:
-        //         kPrimaryColor, // Change selection handle color
-        //   ),
-        // ),
         theme: AppTheme.lightTheme,
         darkTheme: AppTheme.darkTheme, // Dark Theme
-        themeMode: ThemeMode.dark,
+        themeMode: ThemeMode.light,
         debugShowCheckedModeBanner: true,
         routerConfig: router,
         // locale: Locale('ar', 'AE'),
@@ -63,4 +85,3 @@ class ShoeStoreApp extends StatelessWidget {
     );
   }
 }
-

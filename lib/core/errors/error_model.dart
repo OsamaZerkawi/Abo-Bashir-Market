@@ -1,6 +1,6 @@
-import 'package:abo_bashir_market/core/api/end_points.dart';
+import 'package:abo_bashir_market/core/databases/api/end_points.dart';
 
-//SignIN
+//Error Model From My API
 class ErrorModel {
   final bool successful;
   final String message;
@@ -15,7 +15,7 @@ class ErrorModel {
   });
   factory ErrorModel.fromJson(Map<String, dynamic> jsonData) {
     return ErrorModel(
-      statusCode: jsonData[ApiKey.statusCode],
+      statusCode: jsonData[ApiKey.status_code],
       message: jsonData[ApiKey.message],
       successful: jsonData[ApiKey.successful],
       data: jsonData[ApiKey.data],

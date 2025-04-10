@@ -2,15 +2,16 @@ import 'package:abo_bashir_market/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 
 class CustomElevatedButtonSocial extends StatelessWidget {
-  const CustomElevatedButtonSocial(
-      {super.key,
-      required this.text,
-      required this.height,
-      required this.width,
-      required this.onPressed,
-      required this.foregroundColor,
-      required this.backgroundColor,
-      required this.imagePath});
+  const CustomElevatedButtonSocial({
+    super.key,
+    required this.text,
+    required this.height,
+    required this.width,
+    required this.onPressed,
+    required this.foregroundColor,
+    required this.backgroundColor,
+    required this.imagePath,
+  });
 
   final String text;
   final double height;
@@ -35,7 +36,7 @@ class CustomElevatedButtonSocial extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Container(
+          SizedBox(
             height: 30,
             width: 30,
             child: FittedBox(

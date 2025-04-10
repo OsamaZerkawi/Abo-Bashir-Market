@@ -1,11 +1,11 @@
-import 'package:abo_bashir_market/archive/HomeScreen.dart';
-import 'package:abo_bashir_market/cache/cache_helper.dart';
-import 'package:abo_bashir_market/core/api/end_points.dart';
-import 'package:abo_bashir_market/register/ForgetPassowrd/foreget_password_screen.dart';
-import 'package:abo_bashir_market/register/login/login_screen.dart';
-import 'package:abo_bashir_market/register/signup/email_verify_screen.dart';
-import 'package:abo_bashir_market/register/signup/signup_screen.dart';
-import 'package:abo_bashir_market/register/welcome_screen.dart';
+import 'package:abo_bashir_market/home_screen.dart';
+import 'package:abo_bashir_market/core/databases/api/end_points.dart';
+import 'package:abo_bashir_market/core/databases/cache/cache_helper.dart';
+import 'package:abo_bashir_market/features/register/presentation/screens/ForgetPassowrd/foreget_password_screen.dart';
+import 'package:abo_bashir_market/features/register/presentation/screens/login/login_screen.dart';
+import 'package:abo_bashir_market/features/register/presentation/screens/signup/email_verify_screen.dart';
+import 'package:abo_bashir_market/features/register/presentation/screens/signup/signup_screen.dart';
+import 'package:abo_bashir_market/features/register/welcome_screen.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
@@ -48,6 +48,13 @@ bool isLoggedIn() {
 
   // Optional: Verify token hasn't expired
   return !JwtDecoder.isExpired(token);
+
+  // if (JwtDecoder.isExpired(token)) {
+  // refresh token
+  // save new token
+  // return true   or return false so the user should login again
+  // }
+  // else return false
 
   // final decoded = JwtDecoder.decode(token);
   // final expiryDate = DateTime.fromMillisecondsSinceEpoch(decoded['exp'] * 1000);
