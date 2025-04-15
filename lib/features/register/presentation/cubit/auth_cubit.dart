@@ -1,4 +1,3 @@
-import 'package:abo_bashir_market/core/databases/api/end_points.dart';
 import 'package:abo_bashir_market/core/functions/parse_error_message.dart';
 import 'package:abo_bashir_market/features/register/presentation/cubit/auth_state.dart';
 import 'package:abo_bashir_market/features/register/domain/repository/auth_repository.dart';
@@ -33,7 +32,7 @@ class AuthCubit extends Cubit<AuthState> {
       password: password,
       passwordConfirm: passwordConfirm,
       appPassword: appPassword,
-      image: image ,
+      image: image,
     );
     response.fold(
       (errModel) {

@@ -1,7 +1,7 @@
 import 'package:abo_bashir_market/constants/constants.dart';
 import 'package:abo_bashir_market/features/register/presentation/cubit/auth_cubit.dart';
 import 'package:abo_bashir_market/features/register/presentation/cubit/auth_state.dart';
-import 'package:abo_bashir_market/features/register/presentation/widgets/buildTextField.dart';
+import 'package:abo_bashir_market/features/register/presentation/widgets/build_text_field.dart';
 import 'package:abo_bashir_market/features/register/presentation/widgets/buildlabel.dart';
 import 'package:abo_bashir_market/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +23,6 @@ class ForgetPasswordScreen extends StatelessWidget {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text('${state.message} \n ${state.data}'),
-                backgroundColor: Colors.red,
               ),
             );
           } else if (state is AuthForgetPasswordSuccess) {
@@ -63,8 +62,8 @@ class ForgetPasswordScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 50),
                       buildLabel('البريد الإلكتروني'),
-                      buildTextField(
-                        'أدخل بريدك الإلكتروني',
+                      BuildTextField(
+                        hintText: 'أدخل بريدك الإلكتروني',
                         controller: emailController,
                         focusNode: emailFocusNode,
                       ),

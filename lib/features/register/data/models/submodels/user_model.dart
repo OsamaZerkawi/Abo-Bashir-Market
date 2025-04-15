@@ -1,5 +1,4 @@
 import 'package:abo_bashir_market/core/databases/api/end_points.dart';
-import 'package:flutter/material.dart';
 
 class UserModel {
   final String firstName;

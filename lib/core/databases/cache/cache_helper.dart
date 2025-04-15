@@ -34,7 +34,7 @@ class CacheHelper {
 
   dynamic getData({required String key}) {
     return sharedPreferences.get(key);
-  }
+  } 
 
 //! remove data using specific key
 

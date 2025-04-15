@@ -2,11 +2,11 @@ import 'package:abo_bashir_market/config/routes/router.dart';
 import 'package:abo_bashir_market/constants/constants.dart';
 import 'package:abo_bashir_market/core/databases/api/end_points.dart';
 import 'package:abo_bashir_market/core/databases/cache/cache_helper.dart';
+import 'package:abo_bashir_market/core/helper/validator_helper.dart';
 import 'package:abo_bashir_market/features/register/presentation/cubit/auth_cubit.dart';
 import 'package:abo_bashir_market/features/register/presentation/cubit/auth_state.dart';
-import 'package:abo_bashir_market/features/register/presentation/widgets/buildTextField.dart';
+import 'package:abo_bashir_market/features/register/presentation/widgets/build_text_field.dart';
 import 'package:abo_bashir_market/features/register/presentation/widgets/buildlabel.dart';
-import 'package:abo_bashir_market/core/helper/validator_helper.dart';
 import 'package:abo_bashir_market/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -93,8 +93,6 @@ class _LoginScreenState extends State<LoginScreen> {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text('${state.message} \n ${state.data}'),
-                  backgroundColor: Colors.red,
-                  duration: const Duration(seconds: 3),
                 ),
               );
             }
@@ -109,7 +107,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: const Text('تم تسجيل الدخول بنجاح'),
-                    duration: const Duration(seconds: 2),
                     backgroundColor: kPrimaryColor,
                   ),
                 );
@@ -119,7 +116,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: const Text('حدث خطأ في حفظ البيانات'),
-                    backgroundColor: Colors.red,
                   ),
                 );
               }
@@ -170,15 +166,15 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       SizedBox(height: screenWidth * 0.1),
                       buildLabel('البريد الإلكتروني'),
-                      buildTextField(
-                        'أدخل بريدك الإلكتروني',
+                      BuildTextField(
+                        hintText: 'أدخل بريدك الإلكتروني',
                         controller: emailController,
                         focusNode: emailFocusNode, // Non-nullable
                         nextFocusNode: passwordFocusNode,
                       ),
                       buildLabel('كلمة المرور'),
-                      buildTextField(
-                        '***************',
+                      BuildTextField(
+                        hintText: '***************',
                         obscureText: !_isPasswordVisible,
                         isPasswordField: true,
                         controller: passwordController,
@@ -213,7 +209,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             String? passwordError =
                                 ValidatorHelper.validatePassword(
                                     passwordController.text);
-
+                            //!flag
                             if (emailError != null || passwordError != null) {
                               //Validate All Fields
                               ScaffoldMessenger.of(context)

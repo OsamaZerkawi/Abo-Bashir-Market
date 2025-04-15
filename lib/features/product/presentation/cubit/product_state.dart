@@ -198,10 +198,6 @@
 //   });
 // }
 
-
-
-
-
 part of 'product_cubit.dart';
 
 @immutable
@@ -260,7 +256,7 @@ abstract class ProductErrorState extends ProductState {
   });
 }
 
-// --------------------- Get All Products States ---------------------
+// !--------------------- Get All Products States ---------------------
 class ProductGetAllInitial extends ProductState {
   const ProductGetAllInitial();
 }

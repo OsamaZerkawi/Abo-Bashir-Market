@@ -3,9 +3,10 @@ import 'dart:io';
 import 'package:abo_bashir_market/config/routes/router.dart';
 import 'package:abo_bashir_market/constants/constants.dart';
 import 'package:abo_bashir_market/core/helper/validator_helper.dart';
+import 'package:abo_bashir_market/core/utils/app_images.dart';
 import 'package:abo_bashir_market/features/register/presentation/cubit/auth_cubit.dart';
 import 'package:abo_bashir_market/features/register/presentation/cubit/auth_state.dart';
-import 'package:abo_bashir_market/features/register/presentation/widgets/buildTextField.dart';
+import 'package:abo_bashir_market/features/register/presentation/widgets/build_text_field.dart';
 import 'package:abo_bashir_market/features/register/presentation/widgets/buildlabel.dart';
 import 'package:abo_bashir_market/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
@@ -59,7 +60,6 @@ class _SignupScreenState extends State<SignupScreen> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text('${state.statusCode}  ${state.data}'),
-                backgroundColor: Colors.red,
               ),
             );
           } else if (state is AuthSignUpSuccess) {
@@ -123,7 +123,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                   ? CircleAvatar(
                                       backgroundColor: Colors.grey.shade200,
                                       backgroundImage: const AssetImage(
-                                          "assets/images/avatar.png"),
+                                          AppImages.avatarImage),
                                       child: Stack(
                                         children: [
                                           Positioned(
@@ -172,16 +172,16 @@ class _SignupScreenState extends State<SignupScreen> {
                         ),
                         Row(
                           children: [
-                            buildTextField(
-                              'ادخل الاسم',
+                            BuildTextField(
+                              hintText: 'ادخل الاسم',
                               controller: usernameController,
                               focusNode: usernameFocusNode,
                               nextFocusNode: lastnameFocusNode,
                               width: screenWidth * .35,
                             ),
                             SizedBox(width: padding),
-                            buildTextField(
-                              'ادخل الكنية',
+                            BuildTextField(
+                              hintText: 'ادخل الكنية',
                               controller: lastnameController,
                               focusNode: lastnameFocusNode,
                               nextFocusNode: emailFocusNode,
@@ -190,15 +190,16 @@ class _SignupScreenState extends State<SignupScreen> {
                           ],
                         ),
                         buildLabel('البريد الإلكتروني'),
-                        buildTextField(
-                          'ادخل بريدك الإلكتروني',
+
+                        BuildTextField(
+                          hintText: 'ادخل بريدك الإلكتروني',
                           controller: emailController,
                           focusNode: emailFocusNode,
                           nextFocusNode: passwordFocusNode,
                         ),
                         buildLabel('كلمة المرور'),
-                        buildTextField(
-                          '***************',
+                        BuildTextField(
+                          hintText: '***************',
                           obscureText: !_isPasswordVisible,
                           isPasswordField: true,
                           controller: passwordController,
@@ -207,8 +208,8 @@ class _SignupScreenState extends State<SignupScreen> {
                           onTogglePasswordVisibility: _togglePasswordVisibility,
                         ),
                         buildLabel('تأكيد كلمة المرور'),
-                        buildTextField(
-                          '***************',
+                        BuildTextField(
+                          hintText: '***************',
                           obscureText: !_isPasswordConfirmationVisible,
                           isPasswordField: true,
                           controller: passwordConfirmationController,
@@ -219,8 +220,8 @@ class _SignupScreenState extends State<SignupScreen> {
                         ),
 
                         buildLabel('كلمة مرور التطبيق'),
-                        buildTextField(
-                          '***************',
+                        BuildTextField(
+                          hintText: '***************',
                           obscureText: !_isAppPasswordVisible,
                           isPasswordField: true,
                           controller: appPasswordController,
@@ -271,7 +272,6 @@ class _SignupScreenState extends State<SignupScreen> {
                                         appPasswordError ??
                                         firstNameError ??
                                         lastNameError!),
-                                    backgroundColor: Colors.red,
                                   ),
                                 );
                                 return;
@@ -369,7 +369,6 @@ class _SignupScreenState extends State<SignupScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('فشل في اختيار الصورة: $e'),
-          backgroundColor: Colors.red,
         ),
       );
     }
