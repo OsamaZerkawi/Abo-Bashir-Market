@@ -1,3 +1,4 @@
+import 'package:abo_bashir_market/core/databases/api/end_points.dart';
 import 'package:abo_bashir_market/features/product/data/models/clean/product.dart';
 
 class ResponseData {
@@ -20,30 +21,30 @@ class ResponseData {
     List<Product>? products;
     Product? product;
 
-    if (json['Products'] != null) {
-      var productsList = json['Products'] as List;
+    if (json[ApiKey.Products] != null) {
+      var productsList = json[ApiKey.Products] as List;
       products = productsList.map((i) => Product.fromJson(i)).toList();
-    } else if (json['product'] != null) {
-      product = Product.fromJson(json['product']);
+    } else if (json[ApiKey.Products] != null) {
+      product = Product.fromJson(json[ApiKey.Products]);
     }
 
     return ResponseData(
       products: products,
       product: product,
-      totalPages: json['total_pages'],
-      currentPage: json['current_page'],
-      hasMorePages: json['hasMorePages'],
+      totalPages: json[ApiKey.total_pages],
+      currentPage: json[ApiKey.current_page],
+      hasMorePages: json[ApiKey.hasMorePages],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
       if (products != null)
-        'Products': products!.map((p) => p.toJson()).toList(),
-      if (product != null) 'product': product!.toJson(),
-      if (totalPages != null) 'total_pages': totalPages,
-      if (currentPage != null) 'current_page': currentPage,
-      if (hasMorePages != null) 'hasMorePages': hasMorePages,
+        ApiKey.Products: products!.map((p) => p.toJson()).toList(),
+      if (product != null) ApiKey.product: product!.toJson(),
+      if (totalPages != null) ApiKey.total_pages: totalPages,
+      if (currentPage != null) ApiKey.current_page: currentPage,
+      if (hasMorePages != null) ApiKey.hasMorePages: hasMorePages,
     };
   }
 }

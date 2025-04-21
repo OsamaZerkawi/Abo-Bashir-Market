@@ -6,6 +6,7 @@
     "SignUp":"إنشاء حساب",
     "SignIn": "تسجيل الدخول",
     "ChangeLanguage":"تغيير اللغة",
+    "ChangeTheme":"تغيير الوضع",
     "The email has already been taken.":"البريد الإلكتروني مستخدم بالفعل",
      "unexpected_error": "حدث خطأ غير متوقع",
   "he password field confirmation does not match.": "كلمة المرور غير متطابقة",
@@ -13,5 +14,8 @@
   "The selected app password is invalid.": "كلمة مرور التطبيق غير صالحة",
 "The selected email is invalid.":"البريد الالكتروني غير موجود",
 "Incorrect password":"كلمة سر غير صحيحة",
-"Validation failed":"خطأ بتسجيل الدخول"
+"Validation failed":"خطأ بتسجيل الدخول",
+"Switch to Dark Mode":"انتقل للوضع الليلي",
+"Switch to System Default":"انتقل للوضع التلقائي",
+"Switch to Light Mode" :"انتقل للوضع النهاري"
 } 

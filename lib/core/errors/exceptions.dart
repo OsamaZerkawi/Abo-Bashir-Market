@@ -49,6 +49,9 @@ void handleDioExceptions(DioException e) {
         case 422: //  Unprocessable Entity
           throw ServerException(
               errModel: ErrorModel.fromJson(e.response!.data));
+        // case 500:
+        //   throw ServerException(
+        //       errModel: ErrorModel.fromJson(e.response!.data));
         case 504: // Server exception
           throw ServerException(
               errModel: ErrorModel.fromJson(e.response!.data));

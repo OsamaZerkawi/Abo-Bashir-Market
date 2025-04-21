@@ -79,6 +79,7 @@
 //   }
 // }
 
+import 'package:abo_bashir_market/core/utils/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -100,9 +101,9 @@ void main() async {
       minTextAdapt: true,
       splitScreenMode: false,
       builder: (_, __) => EasyLocalization(
-        supportedLocales: const [Locale('en'), Locale('ar')],
-        path: 'assets/lang',
-        fallbackLocale: const Locale('en'),
+        supportedLocales: const [Locale(AppStrings.en), Locale(AppStrings.ar)],
+        path: AppStrings.assetsLang,
+        fallbackLocale: const Locale(AppStrings.en),
         saveLocale: true,
         child: MyApp(cacheHelper: cacheHelper),
       ),

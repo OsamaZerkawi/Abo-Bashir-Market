@@ -1,4 +1,4 @@
-import 'package:abo_bashir_market/home_screen.dart';
+import 'package:abo_bashir_market/navigation_screen.dart';
 import 'package:abo_bashir_market/core/databases/api/end_points.dart';
 import 'package:abo_bashir_market/core/databases/cache/cache_helper.dart';
 import 'package:abo_bashir_market/features/register/presentation/screens/ForgetPassowrd/foreget_password_screen.dart';
@@ -11,7 +11,7 @@ import 'package:go_router/go_router.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
 final String welcomeScreenID = '/';
-final String homeScreenID = '/homeScreen';
+final String navigationScreenID = '/navigationScreen';
 final String loginScreenID = '/logIn';
 final String signUpScreenID = '/signUp';
 final String emailVerifyScreenID = '/emailVerifyScreen';
@@ -20,11 +20,13 @@ final String forgetPasswordScreenID = '/forgetPasswordScreen';
 final GoRouter router = GoRouter(
     navigatorKey: GlobalKey<
         NavigatorState>(), // AGoRouter sometimes requires a navigatorKey to avoid issues with navigation.
-    initialLocation: isLoggedIn() ? homeScreenID : welcomeScreenID,
+    initialLocation: isLoggedIn() ? navigationScreenID : welcomeScreenID,
     routes: [
       GoRoute(
           path: welcomeScreenID, builder: (context, state) => WelcomeScreen()),
-      GoRoute(path: homeScreenID, builder: (context, state) => HomeScreen()),
+      GoRoute(
+          path: navigationScreenID,
+          builder: (context, state) => NavigationScreen()),
       GoRoute(path: loginScreenID, builder: (context, state) => LoginScreen()),
       GoRoute(
           path: signUpScreenID,

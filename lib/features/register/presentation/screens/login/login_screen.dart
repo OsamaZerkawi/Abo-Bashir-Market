@@ -63,31 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     return Scaffold(
       body: BlocConsumer<AuthCubit, AuthState>(
-        listener:
-            // (context, state) async {
-            //   if (state is AuthLoginError) {
-            //     ScaffoldMessenger.of(context).showSnackBar(
-            //       SnackBar(
-            //         content: Text('${state.message} \n ${state.data}'),
-            //         backgroundColor: Colors.red,
-            //       ),
-            //     );
-            //   } else if (state is AuthLoginSuccess) {
-            //     debugPrint('state.token: ${state.token}');
-            //     // / After successful login
-            //     await CacheHelper().saveData(key: ApiKey.token, value: state.token);
-            //     context.go(homeScreenID);
-            //     ScaffoldMessenger.of(context).showSnackBar(
-            //       SnackBar(
-            //         content: Text('تم تسجيل الدخول بنجاح'),
-            //         duration: Duration(seconds: 2),
-            //         backgroundColor: kPrimaryColor,
-            //       ),
-            //     );
-            //   }
-            // },
-
-            (context, state) {
+        listener: (context, state) {
           if (state is AuthLoginError) {
             if (mounted) {
               ScaffoldMessenger.of(context).showSnackBar(
@@ -103,7 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 .then((_) {
               // Use context in a synchronous callback
               if (mounted) {
-                context.go(homeScreenID);
+                context.go(navigationScreenID);
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: const Text('تم تسجيل الدخول بنجاح'),

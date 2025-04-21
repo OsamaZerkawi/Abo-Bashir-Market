@@ -43,7 +43,7 @@ class ThemeToggleButton extends StatelessWidget {
     IconData getIcon() {
       switch (themeMode) {
         case ThemeMode.light:
-          return Icons.light_mode;
+          return Icons.light_mode_outlined;
         case ThemeMode.dark:
           return Icons.dark_mode;
         case ThemeMode.system:

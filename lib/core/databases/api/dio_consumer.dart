@@ -21,8 +21,8 @@ class DioConsumer extends ApiConsumer {
       responseBody: true,
       error: true,
     ));
-    dio.options.connectTimeout = Duration(seconds: 10);
-    dio.options.receiveTimeout = Duration(seconds: 10);
+    // dio.options.connectTimeout = Duration(seconds: 10);
+    // dio.options.receiveTimeout = Duration(seconds: 10);
 
     // if (kDebugMode) {
     //   dio.interceptors.add(servicelo)

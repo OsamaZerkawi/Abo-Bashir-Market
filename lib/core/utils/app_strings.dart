@@ -1,4 +1,8 @@
-// class AppStrings {
+class AppStrings {
+  static const assetsLang = 'assets/lang';
+  static const en = 'en';
+  static const ar = 'ar';
+
 //   static const appName = 'Awesome Animated Drawer';
 //   static const fontName = 'Almarai';
 //   static const locale = 'locale';
@@ -18,4 +22,4 @@
 //   static const communicationErrorWithServer =
 //       'Error occured while Communication with Server with StatusCode';
 //   static const unexpectedError = 'Unexpected Error';
-// }
+}

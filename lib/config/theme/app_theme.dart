@@ -545,10 +545,10 @@ class AppTheme {
 
   static final _darkColors = _AppColors(
     primary: AppColors.primaryColor,
-    background: const Color(0xFF121212),
+    background: AppColors.darkBackground,
     text: Colors.white,
     hintText: Colors.grey[400]!,
-    card: Colors.grey[900]!,
+    card: AppColors.darkCard,
     border: Colors.grey[700]!,
     button: const Color(0xff5BE15F),
   );

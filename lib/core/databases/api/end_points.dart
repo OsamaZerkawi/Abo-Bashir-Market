@@ -1,5 +1,5 @@
 class EndPoint {
-  static String baseUrl = "http://10.65.1.79:8000/api/";
+  static String baseUrl = "http://192.168.1.6:8000/api/";
   static String signUp = "users/register";
   static String emailVerify = "users/emailVerify";
   static String logIn = "users/login";
@@ -73,6 +73,13 @@ class ApiKey {
 
   static String classification = "classification";
   static String quantity = "quantity";
+
+  static String asc = "asc";
+  static String desc = "desc";
+  static String current_price = "current_price";
+
+  static String old_price = "old_price";
+
   // static String errorMessage = "ErrorMessage";
   // static String id = "id";
   // static String phone = "phone";

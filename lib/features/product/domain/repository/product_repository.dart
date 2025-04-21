@@ -28,9 +28,14 @@ class ProductRepository {
           ApiKey.direction: direction
         },
       );
+      // if (response) {
+      //   response['header'];
+      // }
       final getAllProductsResponse = ApiResponse.fromJson(response);
       return Right(getAllProductsResponse);
-    } on ServerException catch (e) {
+    } on ServerException catch (e) {            
+      // print('ERRRRRRRRRror model' + e.toString());
+
       return Left(e.errModel);
     }
   }
