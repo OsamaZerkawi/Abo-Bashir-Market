@@ -4,7 +4,7 @@
 // import 'package:http/http.dart' as http;
 // import 'package:http_parser/http_parser.dart';
 
-// final String baseUrl = 'http://192.168.242.38:8000/api';
+
 
 // class ApiHelper {
 //   ApiHelper();
@@ -278,7 +278,7 @@
 // // import 'package:http/http.dart' as http;
 // // import 'package:http_parser/http_parser.dart';
 
-// // final String baseUrl = 'http://192.168.43.27:8000/api';
+
 
 // // class ApiHelper {
 // //   ApiHelper();
