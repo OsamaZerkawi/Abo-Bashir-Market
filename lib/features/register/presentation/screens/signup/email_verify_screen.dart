@@ -1,4 +1,5 @@
 import 'package:abo_bashir_market/config/routes/router.dart';
+import 'package:abo_bashir_market/config/theme/app_text_styles.dart';
 import 'package:abo_bashir_market/constants/constants.dart';
 import 'package:abo_bashir_market/features/register/presentation/cubit/auth_cubit.dart';
 import 'package:abo_bashir_market/features/register/presentation/cubit/auth_state.dart';
@@ -65,7 +66,7 @@ class EmailVerifyScreen extends StatelessWidget {
                       },
                       child: Text(
                         'إعادة إرسال الرمز',
-                        style: kLinkStyle(context),
+                        style: AppTextStyles.link,
                       ),
                     ),
                     SizedBox(height: 30),

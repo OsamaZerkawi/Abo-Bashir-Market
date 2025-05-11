@@ -1,6 +1,5 @@
 import 'package:abo_bashir_market/config/theme/app_theme.dart';
 import 'package:abo_bashir_market/core/databases/api/dio_consumer.dart';
-import 'package:abo_bashir_market/core/databases/api/end_points.dart';
 import 'package:abo_bashir_market/core/utils/app_colors.dart';
 import 'package:abo_bashir_market/core/utils/app_sizes.dart';
 import 'package:abo_bashir_market/debts_screen.dart';
@@ -30,13 +29,13 @@ class _NavigationScreenState extends State<NavigationScreen> {
   final screens = [
     BlocProvider(
       create: (context) =>
-          ProductCubit(ProductRepository(api: DioConsumer(dio: Dio())))
-            ..getAllProducts(
-              pageNumber: 1,
-              items: 10,
-              column: 'name',
-              direction: ApiKey.asc,
-            ),
+          ProductCubit(ProductRepository(api: DioConsumer(dio: Dio()))),
+      // ..getAllProducts(
+      //   pageNumber: 3,
+      //   items: 10,
+      //   column: 'created_at',
+      //   direction: ApiKey.asc,
+      // ),
       child: HouseScreen(),
     ),
     ReceiptScreen(),
@@ -61,7 +60,8 @@ class _NavigationScreenState extends State<NavigationScreen> {
     return Scaffold(
       appBar: isNavigationScreen
           ? AppBar(
-              title: const Text('أبو بشير ماركت'),
+              // title: Text('أبو بشير ماركت'.tr()),
+              title: Text('Title'),
             )
           : null,
       body: screens[_currentIndex],
@@ -81,7 +81,9 @@ class _NavigationScreenState extends State<NavigationScreen> {
           backgroundColor: isDarkMode
               ? AppTheme.lightTheme(context).canvasColor
               : AppColors.white,
-          buttonBackgroundColor: AppColors.primaryColor,
+          buttonBackgroundColor: isDarkMode
+              ? AppTheme.darkTheme(context).colorScheme.primary
+              : AppTheme.lightTheme(context).colorScheme.primary,
           color: isDarkMode ? AppColors.darkCard : AppColors.secondPrimaryColor,
         ),
       ),

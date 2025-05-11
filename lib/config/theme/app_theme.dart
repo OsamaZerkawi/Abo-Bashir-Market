@@ -369,6 +369,7 @@
 // }
 
 //!This use responsive values
+import 'package:abo_bashir_market/config/theme/app_text_styles.dart';
 import 'package:abo_bashir_market/core/utils/app_colors.dart';
 import 'package:abo_bashir_market/core/utils/app_sizes.dart';
 import 'package:flutter/material.dart';
@@ -377,9 +378,53 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class AppTheme {
   static ThemeData lightTheme(BuildContext context) {
     return ThemeData(
-      iconTheme: IconThemeData(color: AppColors.white),
+      fontFamily: 'Tajawal-Regular',
+      textTheme: ThemeData.light().textTheme.copyWith(
+            displayLarge: AppTextStyles.heading,
+            // displayMedium: ,
+            // displaySmall: ,
+
+            // headlineLarge: ,
+            // headlineMedium: ,
+            // headlineSmall: ,
+
+            // labelLarge: ,
+            labelMedium: AppTextStyles.label,
+            // labelSmall: ,
+
+            // titleLarge: ,
+            // titleMedium: AppTextStyles.subtitle,
+            // titleSmall: ,
+
+            bodyLarge: AppTextStyles.headingBlack,
+            bodyMedium: AppTextStyles.smallBlack,
+            bodySmall: AppTextStyles.link,
+          ),
+      searchBarTheme: SearchBarThemeData(
+        shape: WidgetStateProperty.resolveWith<OutlinedBorder>((states) {
+          // Change border when focused/pressed
+          if (states.contains(WidgetState.focused)) {
+            return RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+              side: BorderSide(
+                color: _lightColors.primary,
+                width: 2,
+              ), // Focused border
+            );
+          }
+          // Default border
+          return RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+            side: BorderSide(), // Default border
+          );
+        }),
+        padding: WidgetStateProperty.all(EdgeInsets.symmetric(
+          horizontal: 10,
+        )),
+      ),
+      iconTheme: IconThemeData(color: _lightColors.primary),
       snackBarTheme: SnackBarThemeData(
-        backgroundColor: AppColors.error,
+        backgroundColor: _lightColors.primary,
       ),
       brightness: Brightness.light,
       primaryColor: _lightColors.primary,
@@ -456,8 +501,36 @@ class AppTheme {
     );
   }
 
+  //! Dark Theme
   static ThemeData darkTheme(BuildContext context) {
     return ThemeData(
+      fontFamily: 'Tajawal-Regular',
+      textTheme: ThemeData.dark().textTheme.copyWith(),
+      searchBarTheme: SearchBarThemeData(
+        shape: WidgetStateProperty.resolveWith<OutlinedBorder>((states) {
+          // Change border when focused/pressed
+          if (states.contains(WidgetState.focused)) {
+            return RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+              side: BorderSide(
+                color: _lightColors.primary,
+                width: 2,
+              ), // Focused border
+            );
+          }
+          // Default border
+          return RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+            side: BorderSide(
+              color: _darkColors.text,
+              width: 2,
+            ), // Default border
+          );
+        }),
+        padding: WidgetStateProperty.all(EdgeInsets.symmetric(
+          horizontal: 10,
+        )),
+      ),
       brightness: Brightness.dark,
       primaryColor: _darkColors.primary,
       scaffoldBackgroundColor: _darkColors.background,

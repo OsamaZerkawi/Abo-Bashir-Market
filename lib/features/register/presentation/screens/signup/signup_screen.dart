@@ -1,8 +1,10 @@
 import 'dart:io';
 
 import 'package:abo_bashir_market/config/routes/router.dart';
+import 'package:abo_bashir_market/config/theme/app_text_styles.dart';
 import 'package:abo_bashir_market/constants/constants.dart';
 import 'package:abo_bashir_market/core/helper/validator_helper.dart';
+import 'package:abo_bashir_market/core/utils/app_colors.dart';
 import 'package:abo_bashir_market/core/utils/app_images.dart';
 import 'package:abo_bashir_market/features/register/presentation/cubit/auth_cubit.dart';
 import 'package:abo_bashir_market/features/register/presentation/cubit/auth_state.dart';
@@ -75,7 +77,7 @@ class _SignupScreenState extends State<SignupScreen> {
           if (state is AuthSignUpLoading) {
             return Center(
                 child: CircularProgressIndicator(
-              color: kPrimaryColor,
+              color: AppColors.primaryColor,
             ));
           } else {
             return Scaffold(
@@ -106,7 +108,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                 },
                                 child: Text(
                                   'بتسجيل الدخول',
-                                  style: kLinkStyle(context),
+                                  style: AppTextStyles.link,
                                 ),
                               ),
                             ],

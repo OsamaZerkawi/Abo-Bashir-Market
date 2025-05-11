@@ -2,6 +2,11 @@ const imagesPath = "assets/images";
 
 class AppImages {
   static const avatarImage = "$imagesPath/avatar.png";
+  static const noImage = "$imagesPath/no_image.jpg";
+  static const camera = "$imagesPath/camera.jpg";
+  static const tea = "$imagesPath/tea.jpg";
+  static const background = "$imagesPath/background.jpg";
+
   // static const supportIcon = "$imagesPath/support_icon.png";
   // static const defaultProfileImage = "$imagesPath/default_profile_image.png";
   // static const feedbackImage = "$imagesPath/feedback_image.png";

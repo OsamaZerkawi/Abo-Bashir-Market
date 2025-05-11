@@ -1,4 +1,5 @@
 import 'package:abo_bashir_market/constants/constants.dart';
+import 'package:abo_bashir_market/core/utils/app_colors.dart';
 import 'package:abo_bashir_market/features/register/presentation/cubit/auth_cubit.dart';
 import 'package:abo_bashir_market/features/register/presentation/cubit/auth_state.dart';
 import 'package:abo_bashir_market/features/register/presentation/widgets/build_text_field.dart';
@@ -31,7 +32,7 @@ class ForgetPasswordScreen extends StatelessWidget {
               SnackBar(
                 content: Text(state.message),
                 duration: Duration(seconds: 2),
-                backgroundColor: kPrimaryColor,
+                backgroundColor: AppColors.primaryColor,
               ),
             );
           }

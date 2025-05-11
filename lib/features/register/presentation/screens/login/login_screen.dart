@@ -1,8 +1,10 @@
 import 'package:abo_bashir_market/config/routes/router.dart';
+import 'package:abo_bashir_market/config/theme/app_text_styles.dart';
 import 'package:abo_bashir_market/constants/constants.dart';
 import 'package:abo_bashir_market/core/databases/api/end_points.dart';
 import 'package:abo_bashir_market/core/databases/cache/cache_helper.dart';
 import 'package:abo_bashir_market/core/helper/validator_helper.dart';
+import 'package:abo_bashir_market/core/utils/app_colors.dart';
 import 'package:abo_bashir_market/features/register/presentation/cubit/auth_cubit.dart';
 import 'package:abo_bashir_market/features/register/presentation/cubit/auth_state.dart';
 import 'package:abo_bashir_market/features/register/presentation/widgets/build_text_field.dart';
@@ -83,7 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: const Text('تم تسجيل الدخول بنجاح'),
-                    backgroundColor: kPrimaryColor,
+                    backgroundColor: AppColors.primaryColor,
                   ),
                 );
               }
@@ -102,7 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
           if (state is AuthLoginLoading) {
             return Center(
                 child: CircularProgressIndicator(
-              color: kPrimaryColor,
+              color: AppColors.primaryColor,
             ));
           } else {
             return Center(
@@ -135,7 +137,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 context.push(signUpScreenID);
                               },
                               child: Text('إنشاء حساب جديد',
-                                  style: kLinkStyle(context)),
+                                  style: AppTextStyles.link),
                             ),
                           ],
                         ),
@@ -161,7 +163,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         children: [
                           Checkbox(
                             value: _isChecked,
-                            activeColor: kPrimaryColor,
+                            activeColor: AppColors.primaryColor,
                             onChanged: (value) {
                               setState(() {
                                 _isChecked = !_isChecked;
@@ -206,7 +208,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             );
                           },
                           foregroundColor: Colors.white,
-                          backgroundColor: kPrimaryColor,
+                          backgroundColor: AppColors.primaryColor,
                         ),
                       ),
                       SizedBox(height: screenWidth * 0.05),
@@ -215,8 +217,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           onTap: () {
                             context.push(forgetPasswordScreenID);
                           },
-                          child: Text('هل نسيت كلمة المرور؟',
-                              style: kLinkStyle(context)),
+                          child: Text(
+                            'هل نسيت كلمة المرور؟',
+                            style: AppTextStyles.link,
+                          ),
                         ),
                       ),
                     ],

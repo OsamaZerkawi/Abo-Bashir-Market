@@ -1,3 +1,4 @@
+import 'package:abo_bashir_market/features/product/data/models/clean/product.dart';
 import 'package:abo_bashir_market/navigation_screen.dart';
 import 'package:abo_bashir_market/core/databases/api/end_points.dart';
 import 'package:abo_bashir_market/core/databases/cache/cache_helper.dart';
@@ -6,6 +7,7 @@ import 'package:abo_bashir_market/features/register/presentation/screens/login/l
 import 'package:abo_bashir_market/features/register/presentation/screens/signup/email_verify_screen.dart';
 import 'package:abo_bashir_market/features/register/presentation/screens/signup/signup_screen.dart';
 import 'package:abo_bashir_market/features/register/welcome_screen.dart';
+import 'package:abo_bashir_market/product_details_screen.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
@@ -16,6 +18,7 @@ final String loginScreenID = '/logIn';
 final String signUpScreenID = '/signUp';
 final String emailVerifyScreenID = '/emailVerifyScreen';
 final String forgetPasswordScreenID = '/forgetPasswordScreen';
+final String productDetailsScreenID = '/productDetailsScreen';
 
 final GoRouter router = GoRouter(
     navigatorKey: GlobalKey<
@@ -42,6 +45,15 @@ final GoRouter router = GoRouter(
             final email = state.pathParameters['email'];
             return EmailVerifyScreen(email: email!);
           }),
+      GoRoute(
+        path: productDetailsScreenID,
+        builder: (context, state) {
+          final product = state.extra as Product;
+          return ProudctDetailsScreen(
+            product: product,
+          );  
+        },
+      ),
     ]);
 
 bool isLoggedIn() {
