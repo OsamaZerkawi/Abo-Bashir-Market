@@ -52,6 +52,7 @@ dependencies:
   jwt_decode: ^0.3.1
   material_design_icons_flutter: ^7.0.7296
   curved_navigation_bar: ^1.0.6
+  cached_network_image: ^3.4.1
 
 dev_dependencies:
   flutter_test:
@@ -89,10 +90,18 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Tajawal
+  fonts:
+    - family: Tajawal
+      fonts:
+        - asset: assets/fonts/Tajawal/Tajawal-Black.ttf
+        - asset: assets/fonts/Tajawal/Tajawal-Bold.ttf
+        - asset: assets/fonts/Tajawal/Tajawal-ExtraBold.ttf
+        - asset: assets/fonts/Tajawal/Tajawal-ExtraLight.ttf
+        - asset: assets/fonts/Tajawal/Tajawal-Light.ttf
+        - asset: assets/fonts/Tajawal/Tajawal-Medium.ttf
+        - asset: assets/fonts/Tajawal/Tajawal-Regular.ttf
       # fonts:
-        # - asset: fonts/Schyler-Regular.ttf
+      # - asset: fonts/Schyler-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro
